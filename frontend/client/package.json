@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@gaemi-school/themes": "file:../packages/themes",
+    "@gaemi-school/themes": "workspace:^",
     "@reduxjs/toolkit": "^2.2.5",
     "axios": "^1.6.7",
     "classnames": "^2.5.1",
