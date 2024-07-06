@@ -7,7 +7,8 @@
     "ecmaFeatures": {
       "jsx": true,
       "tsx": true
-    }
+    },
+    "project": "./tsconfig.eslint.json"
     //"requireConfigFile": "false"
   },
   "env": {

@@ -11,6 +11,7 @@
   },
   "packageManager": "yarn@4.3.1",
   "devDependencies": {
-    "nx": "^19.4.1"
+    "nx": "^19.4.1",
+    "typescript": "^5"
   }
 }
