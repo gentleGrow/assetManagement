@@ -1,0 +1,21 @@
+{
+  "run": {
+    "command": "nx build @gaemi-school/themes",
+    "startTime": "2024-07-06T08:14:35.760Z",
+    "endTime": "2024-07-06T08:14:41.777Z",
+    "inner": false
+  },
+  "tasks": [
+    {
+      "taskId": "@gaemi-school/themes:build",
+      "target": "build",
+      "projectName": "@gaemi-school/themes",
+      "hash": "4229314600568180639",
+      "startTime": "2024-07-06T08:14:35.768Z",
+      "endTime": "2024-07-06T08:14:41.777Z",
+      "params": "",
+      "cacheStatus": "cache-miss",
+      "status": 0
+    }
+  ]
+}
