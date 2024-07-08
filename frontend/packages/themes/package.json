@@ -19,7 +19,7 @@
     "clean": "rm -rf dist"
   },
   "devDependencies": {
-    "esbuild": "^0.21.5",
+    "@gaemi-school/esbuild-config": "workspace:^",
     "typescript": "^5.5.3"
   }
 }

@@ -1,0 +1,14 @@
+{
+  "name": "@gaemi-school/esbuild-config",
+  "packageManager": "yarn@4.3.1",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "build": "echo \"Tada!\""
+  },
+  "dependencies": {
+    "esbuild": "^0.23.0"
+  }
+}
