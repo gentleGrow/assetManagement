@@ -8,31 +8,32 @@ module.exports = {
   parser: "@typescript-eslint/parser",
   parserOptions: {
     project: "./tsconfig.eslint.json",
-tsconfigRootDir: __dirname,
+    tsconfigRootDir: __dirname,
   },
-  "extends": [
+  extends: [
     "eslint:recommended",
     "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
     "plugin:storybook/recommended",
     "prettier",
   ],
-  "plugins": [
+  plugins: [
     "react",
     "@typescript-eslint",
     "react-hooks",
-    "jsx-ally"
+    "jsx-a11y"
   ],
-  "rules": {
+  rules: {
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
-    "react/react-in-jsx-scope": "off", //'import React' 미사용시 오류 억제
-"comma-dangle": "off",
-"no-empty-function": "off",
-"@typescript-eslint/no-empty-function": ["off"], // namespace 사용 가능
-"@typescript-eslint/no-unused-vars": ["error", {
-  argsIgnorePattern: "^_",
-}],
-"storybook/prefer-pascal-case": "off",
+    "react/react-in-jsx-scope": "off", // 'import React' 미사용시 오류 억제
+    "comma-dangle": "off",
+    "no-empty-function": "off",
+    "@typescript-eslint/no-empty-function": ["off"], // namespace 사용 가능
+    "@typescript-eslint/no-unused-vars": ["error", {
+      argsIgnorePattern: "^_",
+    }],
+    "storybook/prefer-pascal-case": "off",
   },
   overrides: [
     {
@@ -42,10 +43,14 @@ tsconfigRootDir: __dirname,
       },
     },
   ],
-  "ignorePatterns": ["**/dist/**/*", ".eslintrc.js"],
-  "settings": {
+  ignorePatterns: ["**/dist/**/*", ".eslintrc.js"],
+  settings: {
+    react: {
+      version: "detect"
+    },
     "import/resolver": {
-  typescript: {},
+      typescript: {},
+      
     },
   },
 };
