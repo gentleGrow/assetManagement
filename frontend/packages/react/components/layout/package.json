@@ -8,7 +8,8 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
-    }
+    },
+    "./style.css": "./dist/style.css"
   },
   "scripts": {
     "build": "yarn clean && yarn build:js && yarn build:type",
@@ -21,6 +22,8 @@
     "@gaemi-school/themes": "workspace:^",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
+    "@vanilla-extract/css": "^1.15.3",
+    "@vanilla-extract/esbuild-plugin": "^2.3.8",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "typescript": "^5.5.3"

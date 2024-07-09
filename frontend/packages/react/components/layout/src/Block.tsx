@@ -1,3 +1,5 @@
+import {blockStyle} from "./block.css";
+
 export const Block = () => {
-  return (<div>Block</div>);
+  return (<div className={blockStyle}>Block</div>);
 };
