@@ -1,5 +1,6 @@
 *.DS_Store
-*.log*.tsbuildinfo
+*.log
+*.tsbuildinfo
 
 .pnp.*
 .yarn/install-state.gz
@@ -8,9 +9,21 @@
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
-**/package-lock.json
+**/packge-lock.json
 **/node_modules/
 
 **/dist/*
 dist
-*storybook.log
+
+# storybook
+**/storybook-static/
+
+# next.js
+**/.next/
+**/out/
+
+# production
+**/build
+
+.env
+**/.env

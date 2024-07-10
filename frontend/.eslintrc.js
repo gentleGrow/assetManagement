@@ -13,26 +13,24 @@ module.exports = {
   extends: [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended",
     "plugin:storybook/recommended",
     "prettier",
   ],
-  plugins: [
-    "react",
-    "@typescript-eslint",
-    "react-hooks",
-    "jsx-a11y"
-  ],
+  plugins: ["react", "@typescript-eslint", "react-hooks", "jsx-a11y"],
   rules: {
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
-    "react/react-in-jsx-scope": "off", // 'import React' 미사용시 오류 억제
+    "react/react-in-jsx-scope": "off",
     "comma-dangle": "off",
+    "react/display-name": "off",
     "no-empty-function": "off",
-    "@typescript-eslint/no-empty-function": ["off"], // namespace 사용 가능
-    "@typescript-eslint/no-unused-vars": ["error", {
-      argsIgnorePattern: "^_",
-    }],
+    "@typescript-eslint/no-empty-function": ["off"],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        argsIgnorePattern: "^_",
+      },
+    ],
     "storybook/prefer-pascal-case": "off",
   },
   overrides: [
@@ -45,12 +43,8 @@ module.exports = {
   ],
   ignorePatterns: ["**/dist/**/*", ".eslintrc.js"],
   settings: {
-    react: {
-      version: "detect"
-    },
     "import/resolver": {
       typescript: {},
-      
     },
   },
 };
