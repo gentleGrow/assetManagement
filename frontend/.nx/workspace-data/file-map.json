@@ -1,0 +1,408 @@
+{
+  "version": "6.0",
+  "nxVersion": "19.4.2",
+  "deps": {
+    "@typescript-eslint/eslint-plugin": "^7.16.0",
+    "@typescript-eslint/parser": "^7.16.0",
+    "eslint": "8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-json-format": "^2.0.1",
+    "eslint-plugin-jsx-a11y": "^6.9.0",
+    "eslint-plugin-react": "^7.34.3",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "eslint-plugin-storybook": "^0.8.0",
+    "nx": "^19.4.1",
+    "prettier": "^3.3.2",
+    "typescript": "^5.5.3"
+  },
+  "pathMappings": {},
+  "nxJsonPlugins": [],
+  "pluginsConfig": {
+    "@nx/js": {
+      "analyzeSourceFiles": false
+    }
+  },
+  "fileMap": {
+    "projectFileMap": {
+      "@gaemi-school/react-components-layout": [
+        {
+          "file": "packages/react/components/layout/build.js",
+          "hash": "12410696413117830390"
+        },
+        {
+          "file": "packages/react/components/layout/package.json",
+          "hash": "16841816563946530569",
+          "deps": [
+            "@gaemi-school/themes",
+            "npm:react@18.3.1",
+            "@gaemi-school/esbuild-config",
+            "npm:@types/react@18.3.3",
+            "npm:@types/react-dom@18.3.0",
+            "npm:@vanilla-extract/css@1.15.3",
+            "npm:@vanilla-extract/esbuild-plugin@2.3.8",
+            "npm:react-dom@18.3.1",
+            "npm:typescript"
+          ]
+        },
+        {
+          "file": "packages/react/components/layout/src/Block.tsx",
+          "hash": "16510126769425609255"
+        },
+        {
+          "file": "packages/react/components/layout/src/block.css.ts",
+          "hash": "5742793782582734482"
+        },
+        {
+          "file": "packages/react/components/layout/src/index.ts",
+          "hash": "5425369313421556660"
+        },
+        {
+          "file": "packages/react/components/layout/tsconfig.json",
+          "hash": "10344179325425879767"
+        }
+      ],
+      "@gaemi-school/themes": [
+        {
+          "file": "packages/themes/build.js",
+          "hash": "3840570061062555473"
+        },
+        {
+          "file": "packages/themes/package.json",
+          "hash": "3357648175693532146",
+          "deps": [
+            "@gaemi-school/esbuild-config",
+            "npm:typescript"
+          ]
+        },
+        {
+          "file": "packages/themes/scripts/build-css-module.js",
+          "hash": "4790649945335636756"
+        },
+        {
+          "file": "packages/themes/src/classes/index.ts",
+          "hash": "14874153686921477232"
+        },
+        {
+          "file": "packages/themes/src/classes/typography.ts",
+          "hash": "11496456837351320532"
+        },
+        {
+          "file": "packages/themes/src/index.ts",
+          "hash": "9051583822173154840"
+        },
+        {
+          "file": "packages/themes/src/variables/box.ts",
+          "hash": "4938030702822930797"
+        },
+        {
+          "file": "packages/themes/src/variables/colors/index.ts",
+          "hash": "16255353438659880457"
+        },
+        {
+          "file": "packages/themes/src/variables/colors/scale.ts",
+          "hash": "7445700656991686552"
+        },
+        {
+          "file": "packages/themes/src/variables/colors/static/dark.ts",
+          "hash": "11422575103079553977"
+        },
+        {
+          "file": "packages/themes/src/variables/colors/static/index.ts",
+          "hash": "18024143103640227694"
+        },
+        {
+          "file": "packages/themes/src/variables/colors/static/light.ts",
+          "hash": "18307867305152061533"
+        },
+        {
+          "file": "packages/themes/src/variables/index.ts",
+          "hash": "17288868138055620940"
+        },
+        {
+          "file": "packages/themes/src/variables/typography.ts",
+          "hash": "14837484105732763952"
+        },
+        {
+          "file": "packages/themes/tsconfig.json",
+          "hash": "10248009443664204963"
+        }
+      ],
+      "@gaemi-school/storybook": [
+        {
+          "file": "services/storybook/.storybook/main.js",
+          "hash": "11078301725031675987"
+        },
+        {
+          "file": "services/storybook/.storybook/preview.js",
+          "hash": "3914820683255342009"
+        },
+        {
+          "file": "services/storybook/README.md",
+          "hash": "2624393197388313932"
+        },
+        {
+          "file": "services/storybook/package.json",
+          "hash": "12031856321568753445",
+          "deps": [
+            "npm:@chromatic-com/storybook@1.6.1",
+            "@gaemi-school/react-components-layout",
+            "@gaemi-school/themes",
+            "npm:@storybook/addon-essentials@8.2.1",
+            "npm:@storybook/addon-interactions@8.2.1",
+            "npm:@storybook/addon-links@8.2.1",
+            "npm:@storybook/addon-onboarding@8.2.1",
+            "npm:@storybook/blocks@8.2.1",
+            "npm:@storybook/react@8.2.1",
+            "npm:@storybook/react-vite@8.2.1",
+            "npm:@storybook/test@8.2.1",
+            "npm:prop-types@15.8.1",
+            "npm:storybook@8.2.1",
+            "npm:vite@5.3.3"
+          ]
+        },
+        {
+          "file": "services/storybook/stories/ReactComponents/Layout/Block.stories.tsx",
+          "hash": "13573021642451223872"
+        }
+      ],
+      "@gaemi-school/esbuild-config": [
+        {
+          "file": "packages/esbuild-config/README.md",
+          "hash": "6886952344311067916"
+        },
+        {
+          "file": "packages/esbuild-config/index.js",
+          "hash": "13440916959540668547"
+        },
+        {
+          "file": "packages/esbuild-config/package.json",
+          "hash": "16171456118370464457",
+          "deps": [
+            "npm:esbuild@0.23.0"
+          ]
+        }
+      ],
+      "gaemi-school": [
+        {
+          "file": "client/.eslintrc.json",
+          "hash": "13691309943742733951"
+        },
+        {
+          "file": "client/.gitignore",
+          "hash": "4622551485580731113"
+        },
+        {
+          "file": "client/.prettierrc.js",
+          "hash": "10094252831885078128"
+        },
+        {
+          "file": "client/README.md",
+          "hash": "12205685531602560652"
+        },
+        {
+          "file": "client/login/icon-close-white.png",
+          "hash": "16950859219767968095"
+        },
+        {
+          "file": "client/login/logo-google.png",
+          "hash": "9225075161784109700"
+        },
+        {
+          "file": "client/login/logo-kakao.png",
+          "hash": "13336537647652745063"
+        },
+        {
+          "file": "client/login/logo-naver.png",
+          "hash": "13972959755775634883"
+        },
+        {
+          "file": "client/next.config.mjs",
+          "hash": "6567081978241091914"
+        },
+        {
+          "file": "client/package.json",
+          "hash": "13229823392377478472",
+          "deps": [
+            "npm:@types/node@20.14.10",
+            "npm:@types/react@18.3.3",
+            "npm:@types/react-dom@18.3.0",
+            "npm:@typescript-eslint/eslint-plugin@5.62.0",
+            "npm:@typescript-eslint/parser@5.62.0",
+            "npm:eslint@8.57.0",
+            "npm:eslint-config-next@14.1.0",
+            "npm:eslint-config-prettier",
+            "npm:eslint-plugin-next@0.0.0",
+            "npm:eslint-plugin-react",
+            "npm:sass@1.77.7",
+            "npm:typescript",
+            "npm:typescript-plugin-css-modules@5.1.0",
+            "@gaemi-school/themes",
+            "npm:@reduxjs/toolkit@2.2.6",
+            "npm:axios@1.7.2",
+            "npm:classnames@2.5.1",
+            "npm:eslint-plugin-prettier@5.1.3",
+            "npm:next@14.2.4",
+            "npm:next-auth@4.24.7",
+            "npm:prettier",
+            "npm:react@18.3.1",
+            "npm:react-dom@18.3.1",
+            "npm:react-redux@9.1.2",
+            "npm:zustand@4.5.4"
+          ]
+        },
+        {
+          "file": "client/src/app/(asset)/asset-management/page.tsx",
+          "hash": "2238616261673755222"
+        },
+        {
+          "file": "client/src/app/(auth)/login/page.tsx",
+          "hash": "17341693543951257195"
+        },
+        {
+          "file": "client/src/app/(home)/page.tsx",
+          "hash": "8610785548827195406"
+        },
+        {
+          "file": "client/src/app/globals.css",
+          "hash": "6610735244072881171"
+        },
+        {
+          "file": "client/src/app/layout.tsx",
+          "hash": "17315846071844064807"
+        },
+        {
+          "file": "client/src/assets/logo.svg",
+          "hash": "17152021195170937231"
+        },
+        {
+          "file": "client/src/assets/notification.svg",
+          "hash": "6995736701148320928"
+        },
+        {
+          "file": "client/src/assets/notification_alert.svg",
+          "hash": "426190672071681432"
+        },
+        {
+          "file": "client/src/assets/notification_alert_hover.svg",
+          "hash": "4980942198970664825"
+        },
+        {
+          "file": "client/src/assets/notification_hover.svg",
+          "hash": "16647971040642925250"
+        },
+        {
+          "file": "client/src/assets/profile.svg",
+          "hash": "10675637287695033087"
+        },
+        {
+          "file": "client/src/assets/profile_hover.svg",
+          "hash": "7705809254807838738"
+        },
+        {
+          "file": "client/src/assets/search.svg",
+          "hash": "15346202001879753058"
+        },
+        {
+          "file": "client/src/components/header/Header.module.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "client/src/components/header/Header.tsx",
+          "hash": "17344817795951658367"
+        },
+        {
+          "file": "client/src/components/pop/login/Login.module.scss",
+          "hash": "10000644005956072137"
+        },
+        {
+          "file": "client/src/components/pop/login/Login.tsx",
+          "hash": "10884465050416955800"
+        },
+        {
+          "file": "client/src/components/provider/Provider.tsx",
+          "hash": "18217639557227481864"
+        },
+        {
+          "file": "client/src/layouts/header/Header.module.scss",
+          "hash": "11716662787214317923"
+        },
+        {
+          "file": "client/src/layouts/header/Header.tsx",
+          "hash": "12633545548321060900"
+        },
+        {
+          "file": "client/src/layouts/innerHeader/InnerHeader.module.scss",
+          "hash": "17800092129174277871"
+        },
+        {
+          "file": "client/src/layouts/innerHeader/InnerHeader.tsx",
+          "hash": "2365433243080482793"
+        },
+        {
+          "file": "client/src/styles/common.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "client/src/styles/global.scss",
+          "hash": "6771308946424610269"
+        },
+        {
+          "file": "client/src/types/next-auth.d.ts",
+          "hash": "16034838238496375966"
+        },
+        {
+          "file": "client/src/utils/axiosConfig.ts",
+          "hash": "7854731449015786570"
+        },
+        {
+          "file": "client/tsconfig.json",
+          "hash": "4767824939272696942"
+        }
+      ]
+    },
+    "nonProjectFiles": [
+      {
+        "file": ".eslintrc.js",
+        "hash": "14052870021940613983"
+      },
+      {
+        "file": ".gitignore",
+        "hash": "9541753937283212883"
+      },
+      {
+        "file": ".prettierrc",
+        "hash": "12078670118560183497"
+      },
+      {
+        "file": ".yarn/releases/yarn-4.3.1.cjs",
+        "hash": "1397390985206817274"
+      },
+      {
+        "file": ".yarnrc.yml",
+        "hash": "9628362127946110903"
+      },
+      {
+        "file": "nx.json",
+        "hash": "17666811988405204199"
+      },
+      {
+        "file": "package.json",
+        "hash": "511749287235246459"
+      },
+      {
+        "file": "tsconfig.base.json",
+        "hash": "5521919723454929940"
+      },
+      {
+        "file": "tsconfig.eslint.json",
+        "hash": "9188420867814966836"
+      },
+      {
+        "file": "yarn.lock",
+        "hash": "11477533652170028878"
+      }
+    ]
+  }
+}
