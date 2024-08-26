@@ -1,6 +1,11 @@
 from enum import StrEnum
 
 
+class PurchaseCurrencyType(StrEnum):
+    KOREA = "KRW"
+    USA = "USD"
+
+
 class InvestmentBankType(StrEnum):
     TOSS = "토스증권"
     MIRAEASSET = "미래에셋증권"

@@ -14,6 +14,16 @@ from app.module.asset.model import (  # noqa: F401 > relationship 설정시 필�
 from app.module.auth.model import User  # noqa: F401 > relationship 설정시 필요합니다.
 
 
+def get_last_week_period_bounds() -> tuple[int, int]:
+    now = datetime.datetime.now()
+    seven_days_ago = now - datetime.timedelta(days=7)
+
+    start_period = int(seven_days_ago.timestamp())
+    end_period = int(now.timestamp())
+
+    return start_period, end_period
+
+
 def get_period_bounds(stock_history_timerange: int) -> tuple[int, int]:
     now = datetime.datetime.now()
     current_year = now.year

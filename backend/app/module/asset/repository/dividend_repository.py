@@ -38,3 +38,22 @@ class DividendRepository:
 
         await session.execute(on_duplicate_stmt)
         await session.commit()
+
+    @staticmethod
+    async def bulk_upsert(session: AsyncSession, dividends: list[Dividend]) -> None:
+        if not dividends:
+            return
+
+        values = [{"dividend": float(div.dividend), "stock_code": str(div.stock_code)} for div in dividends]
+
+        query_statement = insert(Dividend).values(values)
+        on_duplicate_stmt = query_statement.on_duplicate_key_update(
+            dividend=query_statement.inserted.dividend, updated_at=func.now()
+        )
+
+        try:
+            await session.execute(on_duplicate_stmt)
+            await session.commit()
+        except Exception as e:
+            await session.rollback()
+            raise Exception(f"Failed to bulk upsert dividends: {e}")

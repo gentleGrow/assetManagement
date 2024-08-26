@@ -1,21 +1,41 @@
 from redis.asyncio import Redis
 
-from database.dependency import get_redis_pool
+
+class RedisRealTimeStockRepository:
+    @staticmethod
+    async def bulk_get(redis_client: Redis, keys: list[str]) -> list[int]:
+        return await redis_client.mget(keys)
+
+    @staticmethod
+    async def save(redis_client: Redis, key: str, price: int, expire_time: int) -> None:
+        await redis_client.set(key, price, ex=expire_time)
 
 
-class RedisStockRepository:
-    def __init__(self, redis_client: Redis):
-        self.redis = redis_client
+class RedisExchangeRateRepository:
+    @staticmethod
+    async def bulk_get(redis_client: Redis, keys: list[str]) -> list[float]:
+        return await redis_client.mget(keys)
 
-    async def get(self, key: str) -> int | dict | str | list | tuple | None:
-        return await self.redis.get(key)
-
-    async def bulk_get(self, keys: list[str]) -> list[int | dict | str | list | tuple | None]:
-        return await self.redis.mget(keys)
-
-    async def save(self, key: str, data: int | dict | str | list | tuple, expire_time: int) -> None:
-        await self.redis.set(key, data, ex=expire_time)
+    @staticmethod
+    async def save(redis_client: Redis, key: str, data: float, expire_time: int) -> None:
+        await redis_client.set(key, data, ex=expire_time)
 
 
-redis_client = get_redis_pool()
-redis_repository = RedisStockRepository(redis_client)
+class RedisDummyAssetRepository:
+    @staticmethod
+    async def get(redis_client: Redis, key: str) -> str:
+        return await redis_client.get(key)
+
+    @staticmethod
+    async def save(redis_client: Redis, key: str, data: str, expire_time: int) -> None:
+        await redis_client.set(key, data, ex=expire_time)
+
+
+class RedisSessionRepository:
+    @staticmethod
+    async def get(redis_client: Redis, key: str) -> str:
+        return await redis_client.get(key)
+
+    @staticmethod
+    async def save(redis_client: Redis, key: str, data: str, expire_time: int) -> None:
+        await redis_client.set(key, data, ex=expire_time)

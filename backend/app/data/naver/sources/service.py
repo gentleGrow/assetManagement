@@ -1,6 +1,6 @@
 import asyncio
 
-from aiohttp import ClientSession
+from aiohttp import ClientSession, ClientTimeout
 from bs4 import BeautifulSoup
 
 from app.module.asset.schema.stock_schema import StockInfo
@@ -8,9 +8,10 @@ from app.module.asset.schema.stock_schema import StockInfo
 
 async def fetch_stock_price(session: ClientSession, code: str) -> int:
     url = f"https://finance.naver.com/item/main.nhn?code={code}"
+    timeout = ClientTimeout(total=2)
 
     try:
-        async with session.get(url) as response:
+        async with session.get(url, timeout=timeout) as response:
             response.raise_for_status()
             html = await response.text()
             soup = BeautifulSoup(html, "html.parser")
@@ -20,7 +21,8 @@ async def fetch_stock_price(session: ClientSession, code: str) -> int:
 
             price_text = today.select_one(".blind").get_text()
             return int(price_text.replace(",", ""))
-    except Exception:
+    except Exception as e:
+        print(f"Error fetching stock price for {code}: {e}")
         return 0
 
 

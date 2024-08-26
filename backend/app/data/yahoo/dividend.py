@@ -15,13 +15,13 @@ from database.dependency import get_mysql_session
 
 
 async def insert_dividend_data(session: AsyncSession, stock_list: list[StockInfo]):
+    dividend_list = []
     for stock in stock_list:
         try:
             country_enum = Country[stock.country.upper()]
             market_index_enum = MarketIndex[stock.market_index.upper()]
 
             stock_code = format_stock_code(stock.code, country_enum, market_index_enum)
-            print(f"{stock_code=}")
             stock_info = yfinance.Ticker(stock_code)
 
         except Exception as e:
@@ -36,11 +36,12 @@ async def insert_dividend_data(session: AsyncSession, stock_list: list[StockInfo
             newest_dividend = dividends.iloc[-1]
 
         dividend = Dividend(dividend=newest_dividend, stock_code=stock.code)
+        dividend_list.append(dividend)
 
-        try:
-            await DividendRepository.upsert(session=session, dividend=dividend)
-        except Exception:
-            await session.rollback()
+    try:
+        await DividendRepository.bulk_upsert(session=session, dividends=dividend_list)
+    except Exception:
+        await session.rollback()
 
 
 async def main():

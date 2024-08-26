@@ -1,10 +1,17 @@
 import asyncio
-from datetime import date
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.module.asset.enum import AccountType, AssetType, InvestmentBankType
-from app.module.asset.model import Asset, Stock
+from app.module.asset.constant import (
+    ACCOUNT_TYPES,
+    INVESTMENT_BANKS,
+    PURCHASE_DATES,
+    PURCHASECURRENCYTYPES,
+    STOCK_CODES,
+    STOCK_QUANTITIES,
+)
+from app.module.asset.enum import AssetType
+from app.module.asset.model import Asset, AssetStock
 from app.module.asset.repository.asset_repository import AssetRepository
 from app.module.asset.repository.stock_repository import StockRepository
 from app.module.auth.constant import ADMIN_USER_ID, DUMMY_USER_ID
@@ -47,33 +54,44 @@ async def create_initial_users(session: AsyncSession):
 
 
 async def create_dummy_assets(session: AsyncSession):
-    stock_codes = ["005930", "AAPL", "7203", "446720"]  # 삼성전자, 애플, 토요타, etf sol 다우존스
-    purchase_dates = [date(2015, 7, 22), date(2012, 11, 14), date(2020, 6, 8), date(2024, 5, 28)]
+    assets_exist = await AssetRepository.get_assets(session, DUMMY_USER_ID)
+    if assets_exist:
+        print("이미 dummy assets을 저장하였습니다.")
+        return
 
-    stock_list: list[Stock] = await StockRepository.get_by_codes(session, stock_codes)
+    stock_list = await StockRepository.get_by_codes(session, STOCK_CODES)
     stock_dict = {stock.code: stock for stock in stock_list}
 
-    assets: list[Asset] = [
-        Asset(
-            quantity=10,
-            investment_bank=InvestmentBankType.TOSS,
-            account_type=AccountType.REGULAR,
-            asset_type=AssetType.STOCK,
-            purchase_date=purchase_date,
+    assets = []
+
+    for i in range(len(STOCK_CODES)):
+        stock = stock_dict.get(STOCK_CODES[i])
+        if not stock:
+            continue
+
+        asset = Asset(
+            asset_type=AssetType.STOCK.value,
             user_id=DUMMY_USER_ID,
         )
-        for purchase_date in purchase_dates
-    ]
 
-    for stock_code, asset in zip(stock_codes, assets):
-        matching_stock = stock_dict.get(stock_code)
-        asset.stock.append(matching_stock)
+        AssetStock(
+            purchase_price=None,
+            purchase_date=PURCHASE_DATES[i],
+            purchase_currency_type=PURCHASECURRENCYTYPES[i],
+            quantity=STOCK_QUANTITIES[i],
+            investment_bank=INVESTMENT_BANKS[i],
+            account_type=ACCOUNT_TYPES[i],
+            asset=asset,
+            stock=stock,
+        )
 
-    success = await AssetRepository.save_assets(session, assets)
-    if success:
+        assets.append(asset)
+
+    try:
+        await AssetRepository.save_assets(session, assets)
         print("[create_dummy_assets] 더미 유저에 assets을 성공적으로 생성 했습니다.")
-    else:
-        print("[create_dummy_assets] 더미 유저에 assets을 생성하는데 실패 하였습니다.")
+    except Exception as err:
+        print(f"dummy asset 생성 중 에러가 생겼습니다. {err=}")
 
 
 async def main():

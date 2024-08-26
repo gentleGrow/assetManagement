@@ -237,6 +237,7 @@ nasdaq-data-link = "^1.0.4"
 aiosqlite = "^0.20.0"
 polygon = "^1.2.0"
 polygon-api-client = "^1.14.1"
+fakeredis = "^2.23.5"
 
 [build-system]
 requires = ["poetry-core"]

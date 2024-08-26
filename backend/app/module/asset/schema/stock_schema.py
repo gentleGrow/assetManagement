@@ -1,30 +1,48 @@
 from datetime import date
+from typing import Optional
 
 from pydantic import BaseModel, Field
 
+from app.module.asset.enum import AccountType, PurchaseCurrencyType
+
 
 class StockAsset(BaseModel):
+    id: Optional[int] = None
+    account_type: AccountType = Field(..., description="계좌 종류")
+    buy_date: date = Field(..., description="구매일자")
+    current_price: float = Field(..., description="현재가")
+    dividend: float = Field(..., description="배당금")
+    highest_price: float = Field(..., description="주식 하루 중 고가")
+    investment_bank: str = Field(..., description="증권사", examples=["토스증권"])
+    lowest_price: float = Field(..., description="주식 하루 중 저가")
+    opening_price: float = Field(..., description="주식 하루 중 시가, 시작되는 가격")
+    profit_rate: float = Field(..., description="수익률")
+    profit_amount: float = Field(..., description="수익금")
+    purchase_amount: float = Field(..., description="매입금액")
+    purchase_price: float = Field(..., description="매입가")
+    purchase_currency_type: PurchaseCurrencyType = Field(..., description="매입 통화")
+    quantity: int = Field(..., description="수량")
     stock_code: str = Field(..., description="종목 코드", examples=["AAPL"])
     stock_name: str = Field(..., description="종목명", examples=["BGF리테일"])
-    quantity: int = Field(..., description="수량")
-    buy_date: date = Field(..., description="구매일자")
-    profit: float = Field(..., description="수익률")
-    current_price: float = Field(..., description="현재가")
-    opening_price: float = Field(..., description="주식 하루 중 시가, 시작되는 가격")
-    highest_price: float = Field(..., description="주식 하루 중 고가")
-    lowest_price: float = Field(..., description="주식 하루 중 저가")
     stock_volume: int = Field(..., description="주식 하루 중 거래량")
+
+
+class StockAssetRequest(BaseModel):
+    id: Optional[int] = None
+    account_type: AccountType = Field(..., description="계좌 종류")
+    buy_date: date = Field(..., description="구매일자")
     investment_bank: str = Field(..., description="증권사", examples=["토스증권"])
-    dividend: float = Field(..., description="배당금")
     purchase_price: float = Field(..., description="매입가")
-    purchase_amount: float = Field(..., description="매입금액")
+    purchase_currency_type: PurchaseCurrencyType = Field(..., description="매입 통화")
+    quantity: int = Field(..., description="수량")
+    stock_code: str = Field(..., description="종목 코드", examples=["AAPL"])
 
 
 class StockAssetResponse(BaseModel):
     stock_assets: list[StockAsset]
     total_asset_amount: float
     total_invest_amount: float
-    total_invest_growth_rate: float
+    total_profit_rate: float
     total_profit_amount: float
     total_dividend_amount: float
 
@@ -34,14 +52,13 @@ class StockAssetResponse(BaseModel):
         stock_assets: list[StockAsset],
         total_asset_amount: float,
         total_invest_amount: float,
-        total_invest_growth_rate: float,
         total_dividend_amount: float,
     ) -> "StockAssetResponse":
         return cls(
             stock_assets=stock_assets,
             total_asset_amount=total_asset_amount,
             total_invest_amount=total_invest_amount,
-            total_invest_growth_rate=total_invest_growth_rate,
+            total_profit_rate=((total_asset_amount - total_invest_amount) / total_asset_amount) * 100,
             total_profit_amount=total_asset_amount - total_invest_amount,
             total_dividend_amount=total_dividend_amount,
         )
