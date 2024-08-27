@@ -1,16 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import "../../app/globals.css";
 import { Input } from "@/shared";
-import { Input, InputGroup, InputLeftAddon } from "@/shared/ui/input";
-import "@/shared/ui/input/style.css";
-    
+
 const meta: Meta<typeof Input> = {
   title: "React Components/Input",
   component: Input,
   parameters: {
     layout: "centered",
   },
-  tags: ["autodocs"],
 };
 
 export default meta;
@@ -51,17 +48,4 @@ export const Disable: Story = {
     isDisabled: true,
     value: "input / disabled 입니다.",
   },
-};
-
-export const InputStory = {
-  render: () => <Input placeholder="gaemi" />,
-};
-
-export const InputGroupStory = {
-  render: () => (
-    <InputGroup size="lg" color="green">
-      <InputLeftAddon>$</InputLeftAddon>
-      <Input placeholder="gaemi" />
-    </InputGroup>
-  ),
 };
