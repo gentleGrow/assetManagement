@@ -1,21 +1,19 @@
 import clsx from "clsx";
 import { ReactNode } from "react";
 
-export default function LineButton({
+export default function OutlineButton({
   title,
+  className,
   isHover = false,
   isDisabled = false,
-  props,
   children,
 }: {
   title: string;
+  className?: string;
   isHover?: boolean;
   isDisabled?: boolean;
-  props?: Record<string, any>;
   children?: ReactNode;
 }) {
-  const { className, ...restProps } = props || {};
-
   const finalClassName = clsx(
     "relative h-[48px] w-[394px] rounded-md border text-center text-[16px] font-semibold leading-[24px] text-[#2A2D31] disabled:text-[#B9BCC1]",
     {
@@ -28,7 +26,7 @@ export default function LineButton({
   );
 
   return (
-    <button className={finalClassName} disabled={isDisabled} {...restProps}>
+    <button className={finalClassName} disabled={isDisabled}>
       <div className="absolute left-[16px] top-1/2 -translate-y-1/2">
         {children}
       </div>
