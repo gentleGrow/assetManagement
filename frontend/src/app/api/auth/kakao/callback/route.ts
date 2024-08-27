@@ -54,6 +54,7 @@ export async function GET(req: NextRequest) {
 
     if (!jwtResponse.ok) {
       const jwtResponseErrorText = await jwtResponse.text();
+
       return NextResponse.json(
         {
           error: `서비스 서버에서 오류가 발생했습니다.: ${jwtResponseErrorText || "알 수 없는 오류"}`,
