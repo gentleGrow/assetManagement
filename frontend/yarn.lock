@@ -1549,6 +1549,68 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@dnd-kit/accessibility@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "@dnd-kit/accessibility@npm:3.1.0"
+  dependencies:
+    tslib: "npm:^2.0.0"
+  peerDependencies:
+    react: ">=16.8.0"
+  checksum: 10c0/4f9d24e801d66d4fbb551ec389ed90424dd4c5bbdf527000a618e9abb9833cbd84d9a79e362f470ccbccfbd6d00217a9212c92f3cef66e01c951c7f79625b9d7
+  languageName: node
+  linkType: hard
+
+"@dnd-kit/core@npm:^6.1.0":
+  version: 6.1.0
+  resolution: "@dnd-kit/core@npm:6.1.0"
+  dependencies:
+    "@dnd-kit/accessibility": "npm:^3.1.0"
+    "@dnd-kit/utilities": "npm:^3.2.2"
+    tslib: "npm:^2.0.0"
+  peerDependencies:
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+  checksum: 10c0/c793eb97cb59285ca8937ebcdfcd27cff09d750ae06722e36ca5ed07925e41abc36a38cff98f9f6056f7a07810878d76909826142a2968330e7e22060e6be584
+  languageName: node
+  linkType: hard
+
+"@dnd-kit/modifiers@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "@dnd-kit/modifiers@npm:7.0.0"
+  dependencies:
+    "@dnd-kit/utilities": "npm:^3.2.2"
+    tslib: "npm:^2.0.0"
+  peerDependencies:
+    "@dnd-kit/core": ^6.1.0
+    react: ">=16.8.0"
+  checksum: 10c0/542e1d2b6102a5c826118c36158aab23c5437d24008cab4848b0866d3d850b4410c4f465690767dd1f31fde33a1fa9d238675be70f174c179485ce376f0c8aa6
+  languageName: node
+  linkType: hard
+
+"@dnd-kit/sortable@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "@dnd-kit/sortable@npm:8.0.0"
+  dependencies:
+    "@dnd-kit/utilities": "npm:^3.2.2"
+    tslib: "npm:^2.0.0"
+  peerDependencies:
+    "@dnd-kit/core": ^6.1.0
+    react: ">=16.8.0"
+  checksum: 10c0/a6066c652b892c6a11320c7d8f5c18fdf723e721e8eea37f4ab657dee1ac5e7ca710ac32ce0712a57fe968bc07c13bcea5d5599d90dfdd95619e162befd4d2fb
+  languageName: node
+  linkType: hard
+
+"@dnd-kit/utilities@npm:^3.2.2":
+  version: 3.2.2
+  resolution: "@dnd-kit/utilities@npm:3.2.2"
+  dependencies:
+    tslib: "npm:^2.0.0"
+  peerDependencies:
+    react: ">=16.8.0"
+  checksum: 10c0/9aa90526f3e3fd567b5acc1b625a63177b9e8d00e7e50b2bd0e08fa2bf4dba7e19529777e001fdb8f89a7ce69f30b190c8364d390212634e0afdfa8c395e85a0
+  languageName: node
+  linkType: hard
+
 "@emnapi/runtime@npm:^1.1.1":
   version: 1.2.0
   resolution: "@emnapi/runtime@npm:1.2.0"
@@ -1783,6 +1845,13 @@ __metadata:
   version: 2.1.4
   resolution: "@eslint/object-schema@npm:2.1.4"
   checksum: 10c0/e9885532ea70e483fb007bf1275968b05bb15ebaa506d98560c41a41220d33d342e19023d5f2939fed6eb59676c1bda5c847c284b4b55fce521d282004da4dda
+  languageName: node
+  linkType: hard
+
+"@faker-js/faker@npm:^9.0.0":
+  version: 9.0.0
+  resolution: "@faker-js/faker@npm:9.0.0"
+  checksum: 10c0/08a9c504b981da1c5da67ee6ba1f576351924047f0ff385abe0c596a91340bca60947d0b9e3703b95d8eaa685e0a463c815f2d300f64591a8ec1be5c2ba5ae61
   languageName: node
   linkType: hard
 
@@ -3020,6 +3089,25 @@ __metadata:
   peerDependencies:
     react: ^18.0.0
   checksum: 10c0/913566a6778197b0b6dd04416e7ccb2fc766b4c0d04b0dc7f0e10f2bb5dee5663688369e363ae129ccbc1844578f57c81ee7599fac7f3b90ab9611bc52a35e69
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-table@npm:^8.20.5":
+  version: 8.20.5
+  resolution: "@tanstack/react-table@npm:8.20.5"
+  dependencies:
+    "@tanstack/table-core": "npm:8.20.5"
+  peerDependencies:
+    react: ">=16.8"
+    react-dom: ">=16.8"
+  checksum: 10c0/574fa62fc6868a3b1113dbd043323f8b73aeb60555609caa164d5137a14636d4502784a961191afde2ec46f33f8c2bbfc4561d27a701c3d084e899a632dda3c8
+  languageName: node
+  linkType: hard
+
+"@tanstack/table-core@npm:8.20.5":
+  version: 8.20.5
+  resolution: "@tanstack/table-core@npm:8.20.5"
+  checksum: 10c0/3c27b5debd61b6bd9bfbb40bfc7c5d5af90873ae1a566b20e3bf2d2f4f2e9a78061c081aacc5259a00e256f8df506ec250eb5472f5c01ff04baf9918b554982b
   languageName: node
   linkType: hard
 
@@ -9708,6 +9796,10 @@ __metadata:
   resolution: "my-app@workspace:."
   dependencies:
     "@chromatic-com/storybook": "npm:1.6.1"
+    "@dnd-kit/core": "npm:^6.1.0"
+    "@dnd-kit/modifiers": "npm:^7.0.0"
+    "@dnd-kit/sortable": "npm:^8.0.0"
+    "@faker-js/faker": "npm:^9.0.0"
     "@storybook/addon-essentials": "npm:^8.2.9"
     "@storybook/addon-interactions": "npm:^8.2.9"
     "@storybook/addon-links": "npm:^8.2.9"
@@ -9717,6 +9809,7 @@ __metadata:
     "@storybook/react": "npm:^8.2.9"
     "@storybook/test": "npm:^8.2.9"
     "@tanstack/react-query": "npm:^5.51.23"
+    "@tanstack/react-table": "npm:^8.20.5"
     "@types/jsonwebtoken": "npm:^9"
     "@types/node": "npm:^22.2.0"
     "@types/react": "npm:^18"
