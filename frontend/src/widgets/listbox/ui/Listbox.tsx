@@ -20,9 +20,6 @@ export default function ListboxComponent({
 
   return (
     <Listbox value={selected} onChange={setSelected}>
-      <Label className="block text-sm font-medium leading-6 text-gray-900">
-        Assigned to
-      </Label>
       <div className="relative mt-2">
         <ListboxButton className="relative w-full cursor-default rounded-md bg-white px-2.5 py-1.5 text-left text-gray-900 shadow-sm ring-0 ring-inset ring-gray-300 focus:outline-none focus:ring-1 focus:ring-green-60 sm:text-sm sm:leading-6">
           <div className="relative flex h-7 items-center rounded-[100px] border border-gray-20 px-2 py-1">
