@@ -3,7 +3,9 @@ const API_URL = `${SERVICE_SERVER_URL}/api/v1`;
 
 export async function getStockAssets() {
   try {
-    const response = await fetch(`${API_URL}/assetstock`);
+    // const response = await fetch(`${API_URL}/assetstock`);
+    const response = await fetch(`/api/v1/assetstock`);
+
     if (!response.ok) throw new Error("Failed to fetch stock assets");
     const data = await response.json();
 
@@ -32,7 +34,7 @@ export async function getDummyStockAssets() {
 
 export async function createStockAsset(stockAsset) {
   try {
-    const response = await fetch(`${API_URL}/assetstock`, {
+    const response = await fetch(`/api/v1/assetstock`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
