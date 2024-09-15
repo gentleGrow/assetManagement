@@ -8,31 +8,32 @@ import {
   ComboboxOptions,
 } from "@headlessui/react";
 import clsx from "clsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { saveStocks, searchStocks } from "@/shared/lib/indexedDB";
 
-const people = [
-  { id: "1", name: "Tom Cook" },
-  { id: "2", name: "Wade Cooper" },
-  { id: "3", name: "Tanya Fox" },
-  { id: "4", name: "Arlene Mccoy" },
-  { id: "5", name: "Devon Webb" },
-];
-
-export default function Example() {
+export default function Example({ stocks }) {
   const [query, setQuery] = useState("");
-  const [selected, setSelected] = useState(people[1]);
+  const [selected, setSelected] = useState({ code: "1", name: "Tom Cook" });
+  const [results, setResults] = useState([]);
 
-  const filteredPeople =
-    query === ""
-      ? people
-      : people.filter((person) => {
-          return person.name.toLowerCase().includes(query.toLowerCase());
-        });
+  const handleSearch = async (query) => {
+    setQuery(query);
+    if (query) {
+      const searchResults: any = await searchStocks(query);
+      setResults(searchResults);
+    } else {
+      setResults([]);
+    }
+  };
+
+  useEffect(() => {
+    saveStocks(stocks);
+  }, [stocks]);
 
   return (
     <Combobox
       value={selected}
-      onChange={(value: { id: string; name: string }) => setSelected(value)}
+      onChange={(value: { code: string; name: string }) => setSelected(value)}
       onClose={() => setQuery("")}
     >
       <div className="relative">
@@ -41,8 +42,10 @@ export default function Example() {
             "w-full rounded-lg border-none bg-white px-2.5 py-1.5 text-sm/6 text-gray-90 ring-0 ring-inset",
             "focus:outline-none data-[focus]:ring-1 data-[focus]:ring-green-60",
           )}
-          displayValue={(person: { id: string; name: string }) => person?.name}
-          onChange={(event) => setQuery(event.target.value)}
+          displayValue={(result: { code: string; name: string }) =>
+            result?.name
+          }
+          onChange={(event) => handleSearch(event.target.value)}
         />
         <ComboboxButton className="group absolute inset-y-0 right-0 px-2.5">
           {/* <ChevronDownIcon className="size-4 fill-white/60 group-data-[hover]:fill-white" /> */}
@@ -57,14 +60,14 @@ export default function Example() {
           "transition duration-100 ease-in data-[leave]:data-[closed]:opacity-0",
         )}
       >
-        {filteredPeople.map((person) => (
+        {results.map((result: { code: string; name: string }) => (
           <ComboboxOption
-            key={person.id}
-            value={person}
+            key={result.code}
+            value={result}
             className="group flex cursor-default select-none items-center gap-2 border-green-60 px-2 py-1 data-[focus]:border-l-2 data-[focus]:bg-gray-5"
           >
             {/* <CheckIcon className="invisible size-4 fill-white group-data-[selected]:visible" /> */}
-            <div className="text-sm/6 text-gray-90">{person.name}</div>
+            <div className="text-sm/6 text-gray-90">{result.name}</div>
           </ComboboxOption>
         ))}
       </ComboboxOptions>
