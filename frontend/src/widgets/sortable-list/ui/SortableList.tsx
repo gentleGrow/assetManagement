@@ -53,23 +53,25 @@ const SortableList = ({columns}) => {
   };
 
   return (
-    <DndContext
-      sensors={sensors}
-      collisionDetection={closestCenter}
-      onDragEnd={handleDragEnd}
-    >
-      <SortableContext items={items} strategy={verticalListSortingStrategy}>
-        {items.map((item) => (
-          <SortableItem
-            key={item.id}
-            id={item.id}
-            label={item.label}
-            checked={item.checked}
-            onChange={() => handleChange(item.id)}
-          />
-        ))}
-      </SortableContext>
-    </DndContext>
+    <div className="h-[228px] overflow-y-auto">
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+      >
+        <SortableContext items={items} strategy={verticalListSortingStrategy}>
+          {items.map((item) => (
+            <SortableItem
+              key={item.id}
+              id={item.id}
+              label={item.label}
+              checked={item.checked}
+              onChange={() => handleChange(item.id)}
+            />
+          ))}
+        </SortableContext>
+      </DndContext>
+    </div>
   );
 };
 
