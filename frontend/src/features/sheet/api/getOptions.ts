@@ -25,11 +25,17 @@ export async function getAllOptions() {
 
     return {
       bankList: Array.isArray(investment_bank_list)
-        ? [...investment_bank_list]
+        ? investment_bank_list.map((bank) => ({ id: bank, name: bank }))
         : [],
-      accountList: Array.isArray(account_list) ? [...account_list] : [],
+      accountList: Array.isArray(account_list)
+        ? account_list.map((accountType) => ({
+            id: accountType,
+            name: accountType,
+          }))
+        : [],
     };
   } catch (error) {
     console.error("Error fetching bank/account list", error);
+    return {bankList: [], accountList: []};
   }
 }

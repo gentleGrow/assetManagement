@@ -1,17 +1,29 @@
+"use client";
+import { useState, useEffect } from "react";
 import Listbox from "@/widgets/listbox/ui/Listbox";
+import { getAllOptions } from "@/features/sheet/api";
 
 export default function BankCell({
   value,
   onChange,
 }: {
-  value: { id: string; name: string };
-  onChange: (value: { id: string; name: string }) => void;
+  value?: { id: string; name: string };
+  onChange?: (value: { id: string; name: string }) => void;
 }) {
-  const banks = [
-    { id: "1", name: "국민은행" },
-    { id: "2", name: "신한은행" },
-    { id: "3", name: "우리은행" },
-  ];
+  const [bankList, setBankList] = useState<any[]>([]);
 
-  return <Listbox options={banks} iconPath="/images/securities.svg" />;
+  const fetchOptions = async () => {
+    try {
+      const { bankList } = await getAllOptions();
+      setBankList(bankList);
+    } catch (error) {
+      console.error("데이터를 불러오는 중 오류 발생:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchOptions();
+  }, []);
+
+  return <Listbox options={bankList} iconPath="/images/securities.svg" />;
 }
