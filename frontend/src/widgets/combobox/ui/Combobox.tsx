@@ -56,7 +56,7 @@ export default function Example({ stocks }) {
         anchor="bottom"
         transition
         className={clsx(
-          "text-gray-900[--anchor-gap:var(--spacing-1)] w-[var(--input-width)] rounded-xl border border-gray-20 bg-white/5 px-2 py-1 empty:invisible",
+          "bg-white text-gray-900[--anchor-gap:var(--spacing-1)] w-[var(--input-width)] rounded-xl border border-gray-20 bg-white/5 px-2 py-1 empty:invisible",
           "transition duration-100 ease-in data-[leave]:data-[closed]:opacity-0",
         )}
       >
@@ -64,7 +64,7 @@ export default function Example({ stocks }) {
           <ComboboxOption
             key={result.code}
             value={result}
-            className="group flex cursor-default select-none items-center gap-2 border-green-60 px-2 py-1 data-[focus]:border-l-2 data-[focus]:bg-gray-5"
+            className="bg-white group flex cursor-default select-none items-center gap-2 border-green-60 px-2 py-1 data-[focus]:border-l-2 data-[focus]:bg-gray-5"
           >
             {/* <CheckIcon className="invisible size-4 fill-white group-data-[selected]:visible" /> */}
             <div className="text-sm/6 text-gray-90">{result.name}</div>
