@@ -8,7 +8,7 @@ import {
 } from "@tanstack/react-table";
 import { stockAssets, Asset } from "@/features/sheet/model/types";
 import DraggableTableHeader from "@/widgets/draggable-table/DraggableTableHeader";
-import DragAlongCell from "@/widgets/draggable-table/DragAlongCell";
+import DragAlongCell from "./DragAlongCell";
 import { getDummyStockAssets } from "@/features/sheet/api";
 
 // needed for table body level scope DnD setup
