@@ -32,7 +32,9 @@ const Button = (props: ButtonProps, ref: React.Ref<HTMLButtonElement>) => {
   const hoverColor =
     variant === "solid"
       ? colors.$scale[color][60]
-      : colors.$scale[color][50];
+      : variant === "icon"
+        ? colors.$scale[color][10]
+        : colors.$scale[color][50];
   const activeColor =
     variant === "solid"
       ? colors.$scale[color][70]

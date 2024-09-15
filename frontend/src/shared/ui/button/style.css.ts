@@ -43,10 +43,8 @@ export const buttonStyle = recipe({
     size: {
       xs: {
         ...text.xs,
-        fontWeight: fontWeight[600],
-        padding: "0 0.5rem",
-        gap: "0.5rem",
-        height: "1.5rem",
+        padding: "0",
+        gap: "3px",
       },
       sm: {
         ...text.sm,
@@ -72,6 +70,7 @@ export const buttonStyle = recipe({
         gap: "0.5rem",
         height: "3rem",
       },
+      icon: {},
     },
     variant: {
       primary: {
@@ -123,6 +122,17 @@ export const buttonStyle = recipe({
           backgroundColor: activeColorVariant,
         },
       },
+      icon: {
+        color: enableColorVariant,
+        borderRadius: "2px",
+
+        "&:hover:not([disabled])": {
+          backgroundColor: hoverColorVariant,
+        },
+        "&:active:not([disabled])": {
+          backgroundColor: activeColorVariant,
+        },
+      },
     },
   },
 });
@@ -136,7 +146,6 @@ export const spanStyle = recipe({
     size: {
       xs: {
         ...text.xs,
-        fontWeight: fontWeight[600],
       },
       sm: {
         ...text.sm,
@@ -150,6 +159,7 @@ export const spanStyle = recipe({
         ...text.lg,
         fontWeight: fontWeight[600],
       },
+      icon: {},
     },
   },
 });
@@ -192,6 +202,7 @@ export const spinnerStyle = recipe({
         height: fontSize[18],
         left: `calc(50% - ${fontSize[18]}/2)`,
       },
+      icon: {},
     },
   },
 });
