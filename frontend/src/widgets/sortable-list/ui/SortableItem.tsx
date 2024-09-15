@@ -1,24 +1,12 @@
 // components/SortableList.js
 "use client";
 import React, { useState } from "react";
-import {
-  DndContext,
-  closestCenter,
-  KeyboardSensor,
-  PointerSensor,
-  useSensor,
-  useSensors,
-} from "@dnd-kit/core";
-import {
-  arrayMove,
-  SortableContext,
-  sortableKeyboardCoordinates,
-  useSortable,
-  verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
+import Image from "next/image";
 
-// 각 아이템 컴포넌트
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import Checkbox from "@/shared/ui/checkbox/Checkbox";
+
 const SortableItem = ({ id, label, checked, onChange }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
@@ -27,22 +15,20 @@ const SortableItem = ({ id, label, checked, onChange }) => {
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    padding: "8px",
-    margin: "4px 0",
-    display: "flex",
-    alignItems: "center",
-    background: "#f0f0f0",
-    borderRadius: "4px",
-    cursor: "grab",
   };
 
   return (
-    <div ref={setNodeRef} style={style}>
-      <input type="checkbox" checked={checked} onChange={onChange} />
-      <span style={{ marginLeft: "8px", flex: 1 }}>{label}</span>
-      <span style={{ cursor: "grab" }} {...attributes} {...listeners}>
-        ⋮
-      </span>
+    <div ref={setNodeRef} style={style} className="flex items-center space-y-1">
+      <Checkbox label={label} checked={checked} onChange={onChange} />
+      <Image
+        src="/images/drag.svg"
+        alt="Icon"
+        width={24} // 원하는 너비
+        height={24} // 원하는 높이
+        style={{ cursor: "grab" }}
+        {...attributes}
+        {...listeners}
+      />
     </div>
   );
 };
