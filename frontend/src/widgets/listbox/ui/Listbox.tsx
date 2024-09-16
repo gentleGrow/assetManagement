@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import {
   Label,
   Listbox,
@@ -27,21 +28,16 @@ export default function ListboxComponent({
           <div className="relative flex h-7 items-center rounded-[100px] border border-gray-20 px-2 py-1">
             <span className="flex items-center">
               {iconPath && (
-                <img
-                  src={iconPath}
-                  alt="Securities Icon"
-                  className="h-4 w-4 flex-shrink-0 rounded-full"
-                />
+                <Image src={iconPath} alt="icon" width={16} height={16} />
               )}
-
               <span className="ml-1 block truncate">{selected?.name}</span>
             </span>
-            <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
-              <img
+            <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2 text-gray-40">
+              <Image
                 src="/images/arrow_down.svg"
-                alt="Securities Icon"
-                aria-hidden="true"
-                className="h-4 w-4 flex-shrink-0 text-gray-400"
+                alt="arrow_down"
+                width={16}
+                height={16}
               />
             </span>
           </div>
@@ -59,11 +55,7 @@ export default function ListboxComponent({
             >
               <div className="flex h-7 items-center rounded-[100px] border border-gray-20 px-2 py-1">
                 {iconPath && (
-                  <image
-                    src={iconPath}
-                    alt="Securities Icon"
-                    className="h-4 w-4 flex-shrink-0 rounded-full"
-                  />
+                  <Image src={iconPath} alt="icon" width={16} height={16} />
                 )}
 
                 <span className="ml-1 block truncate text-sm font-normal text-gray-90 group-data-[selected]:font-semibold">
