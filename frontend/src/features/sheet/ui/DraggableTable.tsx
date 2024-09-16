@@ -213,7 +213,12 @@ const DraggableTable = () => {
       sensors={sensors}
     >
       <div className="relative mt-4 inline-block rounded-md border border-gray-30 bg-white">
-        {isModalOpen && <CustomColumnSelector onClose={closeModal} />}
+        {isModalOpen && (
+          <CustomColumnSelector
+            onClose={closeModal}
+            headers={table.getHeaderGroups()?.[0].headers}
+          />
+        )}
         <table className="border-collapse">
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (

@@ -1,25 +1,61 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import SortableList from "@/widgets/sortable-list/ui/SortableList";
 import { Button } from "@/shared/ui/button/Button";
 
-const CustomColumnSelector = ({ onClose }) => {
-  const columns = [
-    { id: "1", label: "종목명", required: true, checked: true },
-    { id: "2", label: "수량", required: true, checked: true },
-    { id: "3", label: "구매일자", required: true, checked: true },
-    { id: "4", label: "증권사", required: false, checked: true },
-    { id: "5", label: "계좌 종류", required: false, checked: true },
-    { id: "6", label: "수익률", required: false, checked: true },
-    { id: "7", label: "매입가", required: false, checked: false },
-    { id: "8", label: "배당금", required: false, checked: false },
-    { id: "9", label: "시가", required: false, checked: true },
-    { id: "10", label: "고가", required: false, checked: true },
-    { id: "11", label: "저가", required: false, checked: false },
-    { id: "12", label: "매입가", required: false, checked: false },
-  ];
+interface Column {
+  id: string;
+  label: string;
+  required: boolean;
+  checked: boolean;
+}
+
+interface CustomColumnSelectorProps {
+  onClose: () => void;
+  // headers: { id: string }[];
+  headers: any[];
+}
+
+const columns: Column[] = [
+  { id: "stock_name", label: "종목명", required: true, checked: true },
+  { id: "quantity", label: "수량", required: true, checked: true },
+  { id: "purchase_amount", label: "매입금액", required: true, checked: true },
+  { id: "buy_date", label: "구매일자", required: true, checked: true },
+  { id: "investment_bank", label: "증권사", required: false, checked: true },
+  { id: "account_type", label: "계좌 종류", required: false, checked: true },
+  { id: "profit_rate", label: "수익률", required: false, checked: true },
+  { id: "profit_amount", label: "수익금", required: false, checked: true },
+  { id: "purchase_price", label: "매입가", required: false, checked: false },
+  { id: "current_price", label: "현재가", required: false, checked: true },
+  { id: "opening_price", label: "시가", required: false, checked: true },
+  { id: "highest_price", label: "고가", required: false, checked: true },
+  { id: "lowest_price", label: "저가", required: false, checked: false },
+  { id: "dividend", label: "배당금", required: false, checked: false },
+];
+
+const CustomColumnSelector: React.FC<CustomColumnSelectorProps> = ({
+  onClose,
+  headers,
+}) => {
+  console.log("headers", headers);
+
+  const [filteredColumns, setFilteredColumns] = useState<Column[]>([]);
+
+  useEffect(() => {
+    const matchedColumns = columns
+      .filter((column) => headers.some((item) => item.id === column.id))
+      .map((column) => ({ ...column, checked: true }));
+
+    const unmatchedColumns = columns
+      .filter((column) => !headers.some((item) => item.id === column.id))
+      .map((column) => ({ ...column, checked: false }));
+
+    const newColumns = [...matchedColumns, ...unmatchedColumns];
+    setFilteredColumns(newColumns);
+    console.log("newColumns", newColumns);
+  }, [headers]);
 
   const guidelines = [
     "*최대 10개까지 추가할 수 있습니다.",
@@ -32,6 +68,10 @@ const CustomColumnSelector = ({ onClose }) => {
     if (buttonRef.current) {
       console.log("Button clicked!", buttonRef.current);
     }
+  };
+
+  const handleApply = () => {
+    console.log("Apply button clicked!", filteredColumns);
   };
 
   return (
@@ -74,13 +114,11 @@ const CustomColumnSelector = ({ onClose }) => {
           </p>
         ))}
       </div>
-      <SortableList columns={columns} />
-      <Button
-        variant="primary"
-        size="md"
-        isLoading={false}
-        onClick={() => alert("버튼 클릭!")}
-      >
+      <SortableList
+        filteredColumns={filteredColumns}
+        setFilteredColumns={setFilteredColumns}
+      />
+      <Button variant="primary" size="md" onClick={handleApply}>
         적용하기
       </Button>
     </div>
