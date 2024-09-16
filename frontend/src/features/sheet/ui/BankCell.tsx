@@ -7,7 +7,7 @@ export default function BankCell({
   value,
   onChange,
 }: {
-  value?: { id: string; name: string };
+  value?: { id: any; name: any };
   onChange?: (value: { id: string; name: string }) => void;
 }) {
   const [bankList, setBankList] = useState<any[]>([]);
@@ -25,5 +25,11 @@ export default function BankCell({
     fetchOptions();
   }, []);
 
-  return <Listbox options={bankList} iconPath="/images/securities.svg" />;
+  return (
+    <Listbox
+      options={bankList}
+      iconPath="/images/securities.svg"
+      currentValue={value}
+    />
+  );
 }

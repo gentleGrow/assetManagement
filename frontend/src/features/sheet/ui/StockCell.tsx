@@ -9,10 +9,9 @@ export default function StockCell({
   value,
   onChange,
 }: {
-  value?: { id: string; name: string };
+  value?: { code: any; name: any };
   onChange?: (value: { id: string; name: string }) => void;
 }) {
-
   const [stockList, setStockList] = useState<any[]>([]); // 데이터를 상태로 관리
 
   const fetchComboOptions = async () => {
@@ -28,5 +27,5 @@ export default function StockCell({
     fetchComboOptions();
   }, []);
 
-  return <Combobox stocks={stockList} />;
+  return <Combobox stocks={stockList} currentValue={value} />;
 }

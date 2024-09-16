@@ -7,7 +7,7 @@ export default function AccountTypeCell({
   value,
   onChange,
 }: {
-  value?: { id: string; name: string };
+  value?: { id: any; name: any };
   onChange?: (value: { id: string; name: string }) => void;
 }) {
   const [accountList, setAccountList] = useState<any[]>([]);
@@ -25,5 +25,5 @@ export default function AccountTypeCell({
     fetchOptions();
   }, []);
 
-  return <Listbox options={accountList} />;
+  return <Listbox options={accountList} currentValue={value} />;
 }
