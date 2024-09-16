@@ -232,20 +232,12 @@ const DraggableTable = () => {
             {table.getRowModel().rows.map((row, rowIndex) => (
               <tr key={row.id}>
                 {row.getVisibleCells().map((cell, index) => (
-                  <SortableContext
+                  <DragAlongCell
                     key={cell.id}
-                    items={columnOrder.slice(0, -1)}
-                    strategy={horizontalListSortingStrategy}
-                  >
-                    <DragAlongCell
-                      key={cell.id}
-                      cell={cell}
-                      isLastColumn={index === row.getVisibleCells().length - 1}
-                      isLastRow={
-                        rowIndex === table.getRowModel().rows.length - 1
-                      }
-                    />
-                  </SortableContext>
+                    cell={cell}
+                    isLastColumn={index === row.getVisibleCells().length - 1}
+                    isLastRow={rowIndex === table.getRowModel().rows.length - 1}
+                  />
                 ))}
               </tr>
             ))}
