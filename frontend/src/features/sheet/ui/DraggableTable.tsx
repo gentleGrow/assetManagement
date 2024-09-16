@@ -144,7 +144,7 @@ const DraggableTable = () => {
   //const rerender = useReducer(() => ({}), {})[1];
   // const rerender = () => setData(stockAssets);
 
-  const [data, setData] = useState([]); // 데이터를 상태로 관리
+  const [data, setData] = useState<any[]>([]);
   const [columnOrder, setColumnOrder] = useState<string[]>(() =>
     columns.map((c) => c.id!),
   );
@@ -209,6 +209,24 @@ const DraggableTable = () => {
     useSensor(KeyboardSensor, {}),
   );
 
+  const addRow = () => {
+    const newRow = {
+      id: Date.now(), // 임시 ID 생성, 서버에서 응답받을 실제 ID로 대체 가능
+      stock_name: "",
+      quantity: 0,
+      buy_date: "",
+      investment_bank: "",
+      account_type: "",
+      profit_rate: 0,
+      opening_price: 0,
+      highest_price: 0,
+      lowest_price: 0,
+      isNew: true, // 새로 추가된 행임을 나타내는 플래그
+    };
+
+    setData((prevData) => [...prevData, newRow]);
+  };
+
   return (
     // NOTE: This provider creates div elements, so don't nest inside of <table> elements
     <DndContext
@@ -258,6 +276,26 @@ const DraggableTable = () => {
                 ))}
               </tr>
             ))}
+            <tr>
+              <td colSpan={filteredColumns.length}>
+                <Button
+                  variant="icon"
+                  size="xs"
+                  leftIcon={
+                    <Image
+                      src="/images/add_row.svg"
+                      alt="add row button"
+                      width={24}
+                      height={24}
+                    />
+                  }
+                  style={{ color: "var(--gray-100)" }}
+                  onClick={addRow}
+                >
+                  행 추가
+                </Button>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
