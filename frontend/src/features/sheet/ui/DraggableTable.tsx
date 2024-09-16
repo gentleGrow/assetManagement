@@ -174,7 +174,16 @@ const DraggableTable = () => {
   // reorder columns after drag & drop
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
-    if (active && over && active.id !== over.id) {
+    // 마지막 열의 id를 제외하고 드래그가 가능하게 제한
+    const lastColumnId = columnOrder[columnOrder.length - 1];
+
+    if (
+      active &&
+      over &&
+      active.id !== over.id &&
+      active.id !== lastColumnId &&
+      over.id !== lastColumnId
+    ) {
       setColumnOrder((columnOrder) => {
         const oldIndex = columnOrder.indexOf(active.id as string);
         const newIndex = columnOrder.indexOf(over.id as string);
@@ -204,7 +213,7 @@ const DraggableTable = () => {
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 <SortableContext
-                  items={columnOrder}
+                  items={columnOrder.slice(0, -1)}
                   strategy={horizontalListSortingStrategy}
                 >
                   {headerGroup.headers.map((header, index) => (
@@ -225,7 +234,7 @@ const DraggableTable = () => {
                 {row.getVisibleCells().map((cell, index) => (
                   <SortableContext
                     key={cell.id}
-                    items={columnOrder}
+                    items={columnOrder.slice(0, -1)}
                     strategy={horizontalListSortingStrategy}
                   >
                     <DragAlongCell
