@@ -1,5 +1,6 @@
 "use client";
 import { useState, useReducer, useMemo, useEffect } from "react";
+import Image from "next/image";
 import {
   createColumnHelper,
   ColumnDef,
@@ -9,6 +10,8 @@ import {
 import { stockAssets, Asset } from "@/features/sheet/model/types";
 import DraggableTableHeader from "@/widgets/draggable-table/DraggableTableHeader";
 import DragAlongCell from "./DragAlongCell";
+import CustomColumnSelector from "@/features/sheet/ui/CustomColumnSelector";
+import { Button } from "@/shared/ui/button/Button";
 import { getDummyStockAssets } from "@/features/sheet/api";
 
 // needed for table body level scope DnD setup
@@ -31,6 +34,16 @@ import {
 import { CSSProperties } from "react";
 
 const DraggableTable = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   const columns = useMemo<ColumnDef<Asset>[]>(
     () => [
       {
@@ -86,6 +99,36 @@ const DraggableTable = () => {
         header: "저가",
         id: "lowest_price",
         size: 240,
+      },
+      {
+        accessorKey: "+",
+        id: "+",
+        header: () => (
+          <div className="flex items-center">
+            <button
+              className="ml-2 p-1 text-green-500 hover:text-green-700"
+              onClick={openModal}
+            >
+              +
+            </button>
+          </div>
+        ),
+        cell: ({ getValue }) => (
+          <Button
+            variant="icon"
+            size="icon"
+            leftIcon={
+              <Image
+                src="/images/close.svg"
+                alt="close button"
+                aria-hidden="true"
+                width={24} 
+                height={24} 
+              />
+            }
+            onClick={() => alert("행 삭제")}
+          ></Button>
+        ),
       },
     ],
     [],
@@ -154,7 +197,8 @@ const DraggableTable = () => {
       onDragEnd={handleDragEnd}
       sensors={sensors}
     >
-      <div className="mt-4 inline-block rounded-md border border-gray-30 bg-white">
+      <div className="relative mt-4 inline-block rounded-md border border-gray-30 bg-white">
+        {isModalOpen && <CustomColumnSelector onClose={closeModal} />}
         <table className="border-collapse">
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -168,6 +212,7 @@ const DraggableTable = () => {
                       key={header.id}
                       header={header}
                       isLastColumn={index === headerGroup.headers.length - 1}
+                      isFixed={header.id === "+"}
                     />
                   ))}
                 </SortableContext>

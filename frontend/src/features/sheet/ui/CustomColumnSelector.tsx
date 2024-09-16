@@ -4,7 +4,7 @@ import { useRef } from "react";
 import SortableList from "@/widgets/sortable-list/ui/SortableList";
 import { Button } from "@/shared/ui/button/Button";
 
-const CustomColumnSelector = () => {
+const CustomColumnSelector = ({ onClose }) => {
   const columns = [
     { id: "1", label: "종목명", required: true, checked: true },
     { id: "2", label: "수량", required: true, checked: true },
@@ -34,7 +34,7 @@ const CustomColumnSelector = () => {
   };
 
   return (
-    <div className="flex h-[400px] w-[204px] flex-col space-y-2 rounded rounded-lg border border-gray-20 bg-white p-[10px]">
+    <div className="absolute right-0 top-12 z-50 flex h-[400px] w-[204px] flex-col space-y-2 rounded rounded-lg border border-gray-20 bg-white p-[10px] shadow-xl">
       <div className="flex justify-between border-b pb-[5px]">
         <Button
           variant="icon"
@@ -61,7 +61,7 @@ const CustomColumnSelector = () => {
               aria-hidden="true"
             />
           }
-          onClick={() => alert("아이콘 버튼 클릭!")}
+          onClick={() => onClose()}
         ></Button>
       </div>
       <div className="rounded bg-gray-5 p-2">

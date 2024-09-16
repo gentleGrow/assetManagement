@@ -36,11 +36,13 @@ type DraggableTableHeaderProps<T> = {
   header: Header<T, unknown>;
   isLastColumn: boolean;
   isTextLeft?: boolean;
+  isFixed?: boolean;
 };
 
 const DraggableTableHeader = <T,>({
   header,
   isLastColumn,
+  isFixed,
 }: DraggableTableHeaderProps<T>) => {
   const { attributes, isDragging, listeners, setNodeRef, transform } =
     useSortable({
@@ -57,6 +59,14 @@ const DraggableTableHeader = <T,>({
     zIndex: isDragging ? 1 : 0,
   };
 
+  const HeaderContent = () => (
+    <div className="w-full px-1.5 py-2.5 text-left">
+      {header.isPlaceholder
+        ? null
+        : flexRender(header.column.columnDef.header, header.getContext())}
+    </div>
+  );
+
   return (
     <th
       colSpan={header.colSpan}
@@ -66,13 +76,13 @@ const DraggableTableHeader = <T,>({
         isLastColumn ? "" : "border-r"
       }`}
     >
-      <button className={"w-full"} {...attributes} {...listeners}>
-        <div className={`"text-left" w-full px-1.5 py-2.5`}>
-          {header.isPlaceholder
-            ? null
-            : flexRender(header.column.columnDef.header, header.getContext())}
-        </div>
-      </button>
+      {isFixed ? (
+        <HeaderContent />
+      ) : (
+        <button className="w-full" {...attributes} {...listeners}>
+          <HeaderContent />
+        </button>
+      )}
     </th>
   );
 };
