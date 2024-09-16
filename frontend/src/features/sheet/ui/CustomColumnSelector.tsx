@@ -19,20 +19,20 @@ interface CustomColumnSelectorProps {
 }
 
 const columns: Column[] = [
-  { id: "stock_name", label: "종목명", required: true, checked: true },
-  { id: "quantity", label: "수량", required: true, checked: true },
-  { id: "purchase_amount", label: "매입금액", required: true, checked: true },
-  { id: "buy_date", label: "구매일자", required: true, checked: true },
-  { id: "investment_bank", label: "증권사", required: false, checked: true },
-  { id: "account_type", label: "계좌 종류", required: false, checked: true },
-  { id: "profit_rate", label: "수익률", required: false, checked: true },
-  { id: "profit_amount", label: "수익금", required: false, checked: true },
+  { id: "stock_name", label: "종목명", required: true, checked: false },
+  { id: "quantity", label: "수량", required: true, checked: false },
+  { id: "buy_date", label: "구매일자", required: true, checked: false },
+  { id: "investment_bank", label: "증권사", required: false, checked: false },
+  { id: "account_type", label: "계좌 종류", required: false, checked: false },
+  { id: "purchase_amount", label: "매입금액", required: false, checked: false },
+  { id: "profit_rate", label: "수익률", required: false, checked: false },
+  { id: "profit_amount", label: "수익금", required: false, checked: false },
   { id: "purchase_price", label: "매입가", required: false, checked: false },
-  { id: "current_price", label: "현재가", required: false, checked: true },
-  { id: "opening_price", label: "시가", required: false, checked: true },
-  { id: "highest_price", label: "고가", required: false, checked: true },
-  { id: "lowest_price", label: "저가", required: false, checked: false },
   { id: "dividend", label: "배당금", required: false, checked: false },
+  { id: "current_price", label: "현재가", required: false, checked: false },
+  { id: "opening_price", label: "시가", required: false, checked: false },
+  { id: "highest_price", label: "고가", required: false, checked: false },
+  { id: "lowest_price", label: "저가", required: false, checked: false },
 ];
 // purchase_currency_type 매입 통화
 // id

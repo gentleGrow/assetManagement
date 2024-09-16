@@ -60,6 +60,7 @@ const SortableList = ({ filteredColumns, setFilteredColumns }) => {
               id={item.id}
               label={item.label}
               checked={item.checked}
+              required={item.required}
               onChange={() => handleChange(item.id)}
             />
           ))}

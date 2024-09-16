@@ -7,7 +7,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import Checkbox from "@/shared/ui/checkbox/Checkbox";
 
-const SortableItem = ({ id, label, checked, onChange }) => {
+const SortableItem = ({ id, label, checked, required, onChange }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
 
@@ -19,7 +19,7 @@ const SortableItem = ({ id, label, checked, onChange }) => {
 
   return (
     <div ref={setNodeRef} style={style} className="flex items-center space-y-1">
-      <Checkbox label={label} checked={checked} onChange={onChange} />
+      <Checkbox label={label} checked={checked} required={required} onChange={onChange} />
       <Image
         src="/images/drag.svg"
         alt="Icon"
