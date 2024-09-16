@@ -149,6 +149,11 @@ const DraggableTable = () => {
     columns.map((c) => c.id!),
   );
 
+    // 현재 columnOrder에 포함된 열만 필터링하여 렌더링
+  const filteredColumns = useMemo(() => {
+    return columns.filter((col) => columnOrder.includes(col.id!));
+  }, [columns, columnOrder]);
+
   // API에서 데이터 불러오기
   const fetchData = async () => {
     try {
@@ -166,7 +171,7 @@ const DraggableTable = () => {
 
   const table = useReactTable({
     data,
-    columns,
+    columns: filteredColumns,
     getCoreRowModel: getCoreRowModel(),
     state: {
       columnOrder,
@@ -216,7 +221,8 @@ const DraggableTable = () => {
         {isModalOpen && (
           <CustomColumnSelector
             onClose={closeModal}
-            headers={table.getHeaderGroups()?.[0].headers}
+            columnOrder={columnOrder}
+            setColumnOrder={setColumnOrder}
           />
         )}
         <table className="border-collapse">

@@ -14,8 +14,8 @@ interface Column {
 
 interface CustomColumnSelectorProps {
   onClose: () => void;
-  // headers: { id: string }[];
-  headers: any[];
+  columnOrder: string[];
+  setColumnOrder: (columnOrder: string[]) => void;
 }
 
 const columns: Column[] = [
@@ -34,28 +34,36 @@ const columns: Column[] = [
   { id: "lowest_price", label: "저가", required: false, checked: false },
   { id: "dividend", label: "배당금", required: false, checked: false },
 ];
+// purchase_currency_type 매입 통화
+// id
+// stock_code 종목명
+// stock_volume 주식 하루 중 거래량
 
 const CustomColumnSelector: React.FC<CustomColumnSelectorProps> = ({
   onClose,
-  headers,
+  columnOrder,
+  setColumnOrder,
 }) => {
-  console.log("headers", headers);
-
   const [filteredColumns, setFilteredColumns] = useState<Column[]>([]);
 
   useEffect(() => {
-    const matchedColumns = columns
-      .filter((column) => headers.some((item) => item.id === column.id))
-      .map((column) => ({ ...column, checked: true }));
+    const orderedColumns = columnOrder
+      .map((id) => {
+        const column = columns.find((col) => col.id === id);
+        if (column) {
+          return { ...column, checked: true };
+        }
+        return null;
+      })
+      .filter(Boolean) as Column[]; // null 값을 제거하고 타입 단언
 
-    const unmatchedColumns = columns
-      .filter((column) => !headers.some((item) => item.id === column.id))
-      .map((column) => ({ ...column, checked: false }));
+    const remainingColumns = columns
+      .filter((col) => !columnOrder.includes(col.id))
+      .map((col) => ({ ...col, checked: false }));
 
-    const newColumns = [...matchedColumns, ...unmatchedColumns];
+    const newColumns = [...orderedColumns, ...remainingColumns];
     setFilteredColumns(newColumns);
-    console.log("newColumns", newColumns);
-  }, [headers]);
+  }, [columnOrder]);
 
   const guidelines = [
     "*최대 10개까지 추가할 수 있습니다.",
@@ -71,7 +79,18 @@ const CustomColumnSelector: React.FC<CustomColumnSelectorProps> = ({
   };
 
   const handleApply = () => {
-    console.log("Apply button clicked!", filteredColumns);
+    const selectedColumns: string[] = filteredColumns.reduce(
+      (acc: string[], column) => {
+        if (column.checked) {
+          acc.push(column.id);
+        }
+        return acc;
+      },
+      [],
+    );
+
+    setColumnOrder([...selectedColumns, "+"]);
+    onClose();
   };
 
   return (
