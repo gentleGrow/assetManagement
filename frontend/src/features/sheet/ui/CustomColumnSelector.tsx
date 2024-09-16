@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import SortableList from "@/widgets/sortable-list/ui/SortableList";
 import { Button } from "@/shared/ui/button/Button";
 
@@ -40,10 +41,11 @@ const CustomColumnSelector = ({ onClose }) => {
           variant="icon"
           size="xs"
           leftIcon={
-            <img
+            <Image
               src="/images/refresh.svg"
               alt="refresh button"
-              aria-hidden="true"
+              width={16}
+              height={16}
             />
           }
           style={{ color: "var(--gray-100)" }}
@@ -55,10 +57,11 @@ const CustomColumnSelector = ({ onClose }) => {
           variant="icon"
           size="icon"
           leftIcon={
-            <img
+            <Image
               src="/images/close.svg"
               alt="close button"
-              aria-hidden="true"
+              width={20}
+              height={20}
             />
           }
           onClick={() => onClose()}
@@ -77,8 +80,9 @@ const CustomColumnSelector = ({ onClose }) => {
         size="md"
         isLoading={false}
         onClick={() => alert("버튼 클릭!")}
-        children="적용하기"
-      ></Button>
+      >
+        적용하기
+      </Button>
     </div>
   );
 };

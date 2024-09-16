@@ -105,12 +105,19 @@ const DraggableTable = () => {
         id: "+",
         header: () => (
           <div className="flex items-center">
-            <button
-              className="ml-2 p-1 text-green-500 hover:text-green-700"
+            <Button
+              variant="icon"
+              size="icon"
+              leftIcon={
+                <Image
+                  src="/images/add.svg"
+                  alt="col custom button"
+                  width={42}
+                  height={42}
+                />
+              }
               onClick={openModal}
-            >
-              +
-            </button>
+            ></Button>
           </div>
         ),
         cell: ({ getValue }) => (
@@ -119,11 +126,10 @@ const DraggableTable = () => {
             size="icon"
             leftIcon={
               <Image
-                src="/images/close.svg"
-                alt="close button"
-                aria-hidden="true"
-                width={24} 
-                height={24} 
+                src="/images/delete_row.svg"
+                alt="delete button"
+                width={32}
+                height={32}
               />
             }
             onClick={() => alert("행 삭제")}
