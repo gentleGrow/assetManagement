@@ -10,15 +10,18 @@ const CustomInput = forwardRef((props, ref: React.Ref<HTMLInputElement>) => {
   const { value, onClick } = props as { value: string; onClick: () => void }; // props에서 value와 onClick을 추출합니다.
 
   return (
-    <input
-      type="text"
-      ref={ref}
-      onClick={onClick}
-      value={value}
-      className="w-full cursor-pointer rounded-md border px-3 py-2"
-      placeholder="YYYY.MM.DD"
-      readOnly
-    />
+    <div className="w-full cursor-pointer rounded-md border px-3 py-2 flex">
+      <Image src="/images/calendar.svg" alt="calendar" width={24} height={24} />
+      <input
+        type="text"
+        ref={ref}
+        onClick={onClick}
+        value={value}
+        className="flex-1 focus:ring-none cursor-pointer px-3 focus:outline-none"
+        placeholder="YYYY.MM.DD"
+        readOnly
+      />
+    </div>
   );
 });
 
