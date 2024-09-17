@@ -78,3 +78,9 @@
 .customDatepicker :global(.react-datepicker-wrapper) {
   width: 100%;
 }
+
+.customDatepicker :global(.react-datepicker-popper) {
+  transform: none !important;
+  top: 42px !important;
+  z-index: 100 !important;
+}
