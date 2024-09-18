@@ -1,8 +1,14 @@
 "use client";
 import { useState, useReducer, useMemo, useEffect } from "react";
 import Image from "next/image";
-import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
-import DraggableTableHeader from "@/widgets/draggable-table/DraggableTableHeader";
+import {
+  getCoreRowModel,
+  useReactTable,
+  getSortedRowModel,
+  SortingFn,
+  SortingState,
+} from "@tanstack/react-table";
+import DraggableTableHeader from "./DraggableTableHeader";
 import DragAlongCell from "./DragAlongCell";
 import { useTableColumns } from "./TableColumns";
 
@@ -67,14 +73,21 @@ const DraggableTable = () => {
     fetchData();
   }, []);
 
+  const [sorting, setSorting] = useState<any[]>([]);
+
   const table = useReactTable({
     data,
     columns: filteredColumns,
     getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(), // 정렬을 위한 RowModel 추가
     state: {
       columnOrder,
+      sorting, // 현재 정렬 상태 반영
     },
     onColumnOrderChange: setColumnOrder,
+    onSortingChange: setSorting,
+    enableSortingRemoval: false,
+    enableMultiSort: false,
     debugTable: true,
     debugHeaders: true,
     debugColumns: true,
