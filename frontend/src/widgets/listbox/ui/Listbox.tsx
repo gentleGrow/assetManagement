@@ -14,15 +14,24 @@ export default function ListboxComponent({
   options,
   iconPath,
   currentValue,
+  onChange,
 }: {
   options: { id: string; name: string }[];
   iconPath?: string;
   currentValue?: any;
+  onChange?: (value: any) => void;
 }) {
   const [selected, setSelected] = useState(currentValue);
 
+  const handleChange = (value: any) => {
+    setSelected(value);
+    if (onChange) {
+      onChange(value);
+    }
+  };
+
   return (
-    <Listbox value={selected} onChange={setSelected}>
+    <Listbox value={selected} onChange={handleChange}>
       <div className="relative">
         <ListboxButton className="relative w-full cursor-default rounded-md bg-white px-2.5 py-1.5 text-left text-gray-90 shadow-sm ring-0 ring-inset ring-gray-300 focus:outline-none focus:ring-1 focus:ring-green-60 data-[open]:ring-1 data-[open]:ring-green-60 sm:text-sm sm:leading-6">
           <div className="relative flex h-7 items-center rounded-[100px] border border-gray-20 px-2 py-1">

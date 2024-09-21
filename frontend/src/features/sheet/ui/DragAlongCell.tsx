@@ -1,15 +1,8 @@
 import React, { CSSProperties } from "react";
-import { useState, useRef } from "react";
-import ReactDOM from "react-dom/client";
-
-import {
-  Cell,
-  ColumnDef,
-  Header,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
+import { useState, useRef, useEffect } from "react";
+import { Cell, flexRender } from "@tanstack/react-table";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 import StockCell from "@/features/sheet/ui/StockCell";
 import BankCell from "@/features/sheet/ui/BankCell";
@@ -55,6 +48,11 @@ const DragAlongCell = <T,>({
   });
   const [isEditing, setIsEditing] = useState(false);
   const cellRef = useRef<HTMLDivElement | null>(null);
+  const [cellValue, setCellValue] = useState<any>(cell.getValue() ?? "");
+
+  useEffect(() => {
+    setCellValue(cell.getValue()); // 셀의 초기값 설정
+  }, [cell]);
 
   const style: CSSProperties = {
     opacity: isDragging ? 0.8 : 1,
@@ -65,26 +63,35 @@ const DragAlongCell = <T,>({
     zIndex: isDragging ? 1 : isEditing ? 1 : 0,
   };
 
+  const onChange = (value) => {
+    setCellValue(value);
+  };
+  
   const renderTableCell = () => {
     const cellType = cell.column.id;
     switch (cellType) {
       case "stock_name":
         return (
           <StockCell
-            value={{
-              code: cell.getContext().row.original?.["stock_code"],
-              name: cell.getValue(),
-            }}
+            value={cellValue}
+            code={cell.getContext().row.original?.["stock_code"]}
+            onChange={onChange}
           />
         );
       case "investment_bank":
         return (
-          <BankCell value={{ id: cell.getValue(), name: cell.getValue() }} />
+          <BankCell
+            value={cellValue}
+            onChange={onChange}
+            bankList={options?.bankList}
+          />
         );
       case "account_type":
         return (
           <AccountTypeCell
-            value={{ id: cell.getValue(), name: cell.getValue() }}
+            value={cellValue}
+            onChange={onChange}
+            accountList={options?.accountList}
           />
         );
       default:

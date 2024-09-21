@@ -14,9 +14,11 @@ import { saveStocks, searchStocks } from "@/shared/lib/indexedDB";
 export default function ComboboxComponent({
   stocks,
   currentValue,
+  onChange,
 }: {
   stocks?: any;
   currentValue?: { code: any; name: any };
+  onChange?: (value: { code: string; name: string }) => void;
 }) {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState(currentValue);
@@ -32,14 +34,17 @@ export default function ComboboxComponent({
     }
   };
 
-  useEffect(() => {
-    saveStocks(stocks);
-  }, [stocks]);
+  const handleChange = (value: { code: string; name: string }) => {
+    setSelected(value);
+    if (onChange) {
+      onChange(value);
+    }
+  };
 
   return (
     <Combobox
       value={selected}
-      onChange={(value: { code: string; name: string }) => setSelected(value)}
+      onChange={handleChange}
       onClose={() => setQuery("")}
     >
       <div className="relative">

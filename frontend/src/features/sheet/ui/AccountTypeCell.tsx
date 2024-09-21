@@ -1,29 +1,26 @@
 "use client";
-import { useState, useEffect } from "react";
 import Listbox from "@/widgets/listbox/ui/Listbox";
-import { getAllOptions } from "@/features/sheet/api";
 
 export default function AccountTypeCell({
   value,
   onChange,
+  accountList,
 }: {
-  value?: { id: any; name: any };
-  onChange?: (value: { id: string; name: string }) => void;
+  value?: any;
+  onChange?: (value: any) => void;
+  accountList?: any[];
 }) {
-  const [accountList, setAccountList] = useState<any[]>([]);
-
-  const fetchOptions = async () => {
-    try {
-      const { accountList } = await getAllOptions();
-      setAccountList(accountList);
-    } catch (error) {
-      console.error("데이터를 불러오는 중 오류 발생:", error);
+  const handleChange = (value: { id: string; name: string }) => {
+    if (onChange) {
+      onChange(value.name);
     }
   };
 
-  useEffect(() => {
-    fetchOptions();
-  }, []);
-
-  return <Listbox options={accountList} currentValue={value} />;
+  return (
+    <Listbox
+      options={accountList ?? []}
+      currentValue={{ id: value, name: value }}
+      onChange={handleChange}
+    />
+  );
 }
