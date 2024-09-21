@@ -1,16 +1,17 @@
 // sheetApi.ts
-import { getDummyStockAssets } from "./getSheetData";
+import { getStockAssets } from "./getSheetData";
 import { getAllStocks, getAllOptions } from "./getOptions";
-// import { createSheet } from './createSheet';
-// import { updateSheet } from './updateSheet';
-// import { deleteSheet } from './deleteSheet';
+import {
+  createStockAsset,
+  updateStockAsset,
+  deleteStockAsset,
+} from "./modifySheetData";
 
-// 필요한 API 함수들을 통합하여 export
 export {
-  getDummyStockAssets,
+  getStockAssets,
   getAllStocks,
   getAllOptions,
-  // createSheet,
-  // updateSheet,
-  // deleteSheet,
+  createStockAsset,
+  updateStockAsset,
+  deleteStockAsset,
 };
