@@ -34,7 +34,7 @@ import {
   horizontalListSortingStrategy,
 } from "@dnd-kit/sortable";
 
-const DraggableTable = () => {
+const DraggableTable = ({ tableData, setTableData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
@@ -68,15 +68,10 @@ const DraggableTable = () => {
     }
   };
 
-  // 컴포넌트가 처음 렌더링될 때 데이터를 불러옴
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   const [sorting, setSorting] = useState<any[]>([]);
 
   const table = useReactTable({
-    data,
+    data: tableData,
     columns: filteredColumns,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(), // 정렬을 위한 RowModel 추가
@@ -88,9 +83,6 @@ const DraggableTable = () => {
     onSortingChange: setSorting,
     enableSortingRemoval: false,
     enableMultiSort: false,
-    debugTable: true,
-    debugHeaders: true,
-    debugColumns: true,
   });
 
   // reorder columns after drag & drop
