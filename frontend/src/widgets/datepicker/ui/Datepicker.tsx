@@ -1,39 +1,66 @@
-import { useState, forwardRef } from "react";
+import { useState, forwardRef, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/locale";
 import { Button } from "@/shared/ui/button/Button";
 import Image from "next/image";
 import styles from "./styles.module.css";
-// 사용자 정의 입력창 컴포넌트
-const CustomInput = forwardRef((props, ref: React.Ref<HTMLInputElement>) => {
-  const { value, onClick } = props as { value: string; onClick: () => void }; // props에서 value와 onClick을 추출합니다.
+import { format } from "date-fns";
 
-  return (
-    <div className="w-full cursor-pointer rounded-md border px-3 py-2 flex">
-      <Image src="/images/calendar.svg" alt="calendar" width={24} height={24} />
-      <input
-        type="text"
-        ref={ref}
-        onClick={onClick}
-        value={value}
-        className="flex-1 focus:ring-none cursor-pointer px-3 focus:outline-none"
-        placeholder="YYYY.MM.DD"
-        readOnly
-      />
-    </div>
-  );
-});
+interface CustomInputProps {
+  value?: string;
+  onClick?: () => void;
+}
+
+const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
+  ({ value, onClick }, ref) => {
+    return (
+      <div className="flex w-full cursor-pointer rounded-md border px-3 py-2">
+        <Image
+          src="/images/calendar.svg"
+          alt="calendar"
+          width={24}
+          height={24}
+        />
+        <input
+          type="text"
+          ref={ref}
+          onClick={onClick}
+          value={value}
+          className="focus:ring-none flex-1 cursor-pointer px-3 focus:outline-none"
+          placeholder="YYYY.MM.DD"
+          readOnly
+        />
+      </div>
+    );
+  },
+);
 
 // forwardRef로 생성한 컴포넌트는 디스플레이 이름을 설정해 주면 디버깅 시 도움이 됩니다.
 CustomInput.displayName = "CustomInput";
 
-const DatepickerComponent = () => {
+const DatepickerComponent = ({
+  value,
+  onChange,
+}: {
+  value?: any;
+  onChange?: (value: any) => void;
+}) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [showMonthPicker, setShowMonthPicker] = useState(false);
 
-  const handleDateChange = () => {
-    setShowMonthPicker(false);
+  useEffect(() => {
+    setSelectedDate(value ? new Date(value) : null);
+  }, [value]);
+
+  const handleDateChange = (date: Date | null) => {
+    setSelectedDate(date);
+    if (onChange) {
+      if (!date) return "";
+      console.log('format(date, "yyyy-MM-dd"', format(date, "yyyy-MM-dd"));
+
+      onChange(format(date, "yyyy-MM-dd"));
+    }
   };
 
   const handleYearMonthClick = () => {
@@ -91,13 +118,17 @@ const DatepickerComponent = () => {
         className={styles.customDatepicker}
         selected={selectedDate}
         onChange={
-          showMonthPicker ? handleDateChange : (date) => setSelectedDate(date)
+          showMonthPicker ? () => setShowMonthPicker(false) : handleDateChange
         }
         locale={ko}
         dateFormat={"yyyy.MM.dd"}
         showMonthYearPicker={showMonthPicker}
         popperPlacement="bottom"
-        customInput={<CustomInput />}
+        customInput={
+          <CustomInput
+            value={selectedDate ? selectedDate.toLocaleDateString() : ""}
+          />
+        }
         showPopperArrow={false}
         onCalendarClose={handleCalendarClose}
         shouldCloseOnSelect={showMonthPicker ? false : true}
