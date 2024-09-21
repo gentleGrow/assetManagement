@@ -5,30 +5,12 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
 import StockCell from "@/features/sheet/ui/StockCell";
+import NumberCell from "@/features/sheet/ui/NumberCell";
 import BankCell from "@/features/sheet/ui/BankCell";
 import AccountTypeCell from "@/features/sheet/ui/AccountTypeCell";
-
-// needed for table body level scope DnD setup
-import {
-  DndContext,
-  KeyboardSensor,
-  MouseSensor,
-  TouchSensor,
-  closestCenter,
-  type DragEndEvent,
-  useSensor,
-  useSensors,
-} from "@dnd-kit/core";
-import { restrictToHorizontalAxis } from "@dnd-kit/modifiers";
-import {
-  arrayMove,
-  SortableContext,
-  horizontalListSortingStrategy,
-} from "@dnd-kit/sortable";
-
-// needed for row & cell level scope DnD setup
-import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
+import ProfitCell from "@/features/sheet/ui/ProfitCell";
+import PriceCell from "@/features/sheet/ui/PriceCell";
+import Datepicker from "@/widgets/datepicker/ui/Datepicker";
 
 type DragAlongCellProps<T> = {
   cell: Cell<T, unknown>;
@@ -66,7 +48,7 @@ const DragAlongCell = <T,>({
   const onChange = (value) => {
     setCellValue(value);
   };
-  
+
   const renderTableCell = () => {
     const cellType = cell.column.id;
     switch (cellType) {
@@ -78,6 +60,13 @@ const DragAlongCell = <T,>({
             onChange={onChange}
           />
         );
+
+      case "quantity":
+        return <NumberCell value={cellValue} onChange={onChange} />;
+
+      case "buy_date":
+        return <Datepicker value={cellValue} onChange={onChange} />;
+
       case "investment_bank":
         return (
           <BankCell
@@ -86,6 +75,7 @@ const DragAlongCell = <T,>({
             bankList={options?.bankList}
           />
         );
+
       case "account_type":
         return (
           <AccountTypeCell
@@ -94,6 +84,16 @@ const DragAlongCell = <T,>({
             accountList={options?.accountList}
           />
         );
+        
+      case "profit_amount":
+        return <ProfitCell value={cellValue} onChange={onChange} />;
+
+      case "purchase_price":
+        return <PriceCell value={cellValue} onChange={onChange} />;
+
+      case "dividend":
+        return <PriceCell value={cellValue} onChange={onChange} />;
+
       default:
         return defaultCell();
     }
