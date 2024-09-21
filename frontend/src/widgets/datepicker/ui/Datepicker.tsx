@@ -21,13 +21,14 @@ const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
           alt="calendar"
           width={24}
           height={24}
+          className="flex-shrink-0"
         />
         <input
           type="text"
           ref={ref}
           onClick={onClick}
           value={value}
-          className="focus:ring-none flex-1 cursor-pointer px-3 focus:outline-none"
+          className="focus:ring-none flex-grow cursor-pointer pl-3 focus:outline-none box-border min-w-0"
           placeholder="YYYY.MM.DD"
           readOnly
         />
