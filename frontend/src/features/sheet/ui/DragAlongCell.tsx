@@ -41,12 +41,14 @@ type DragAlongCellProps<T> = {
   cell: Cell<T, unknown>;
   isLastColumn: boolean;
   isLastRow: boolean;
+  options?: any;
 };
 
 const DragAlongCell = <T,>({
   cell,
   isLastColumn,
   isLastRow,
+  options,
 }: DragAlongCellProps<T>) => {
   const { isDragging, setNodeRef, transform } = useSortable({
     id: cell.column.id,

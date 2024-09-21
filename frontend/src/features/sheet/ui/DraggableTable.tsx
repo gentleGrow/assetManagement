@@ -33,6 +33,8 @@ import {
   SortableContext,
   horizontalListSortingStrategy,
 } from "@dnd-kit/sortable";
+import { getAllStocks, getAllOptions } from "@/features/sheet/api";
+import { saveStocks } from "@/shared/lib/indexedDB";
 
 const DraggableTable = ({ tableData, setTableData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -56,17 +58,39 @@ const DraggableTable = ({ tableData, setTableData }) => {
     return columns.filter((col) => columnOrder.includes(col.id!));
   }, [columns, columnOrder]);
 
-  const [data, setData] = useState<any[]>([]);
+  const [stockList, setStockList] = useState<any[]>([]); // 데이터를 상태로 관리
 
-  // API에서 데이터 불러오기
-  const fetchData = async () => {
+  const fetchComboOptions = async () => {
     try {
-      const stockAssets = await getDummyStockAssets(); // API 호출
-      setData(stockAssets); // 가져온 데이터를 상태로 설정
+      const stockList = await getAllStocks(); // API 호출
+      setStockList(stockList); // 가져온 데이터를 상태로 설정
+      saveStocks(stockList);
     } catch (error) {
       console.error("데이터를 불러오는 중 오류 발생:", error);
     }
   };
+
+  const [options, setOptions] = useState<{
+    bankList: { id: any; name: any }[];
+    accountList: { id: any; name: any }[];
+  }>({ bankList: [], accountList: [] });
+
+  const fetchOptions = async () => {
+    try {
+      const options = await getAllOptions();
+      setOptions({
+        bankList: options.bankList,
+        accountList: options.accountList,
+      });
+    } catch (error) {
+      console.error("데이터를 불러오는 중 오류 발생:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchComboOptions();
+    fetchOptions();
+  }, []);
 
   const [sorting, setSorting] = useState<any[]>([]);
 
@@ -175,6 +199,7 @@ const DraggableTable = ({ tableData, setTableData }) => {
                     cell={cell}
                     isLastColumn={index === row.getVisibleCells().length - 1}
                     isLastRow={rowIndex === table.getRowModel().rows.length - 1}
+                    options={options}
                   />
                 ))}
               </tr>
