@@ -105,7 +105,6 @@ const DragAlongCell = <T,>({
     );
   };
 
-  // Handle click to enable editing mode
   const handleCellClick = () => {
     setIsEditing(true);
   };

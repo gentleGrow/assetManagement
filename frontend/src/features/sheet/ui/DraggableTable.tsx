@@ -5,8 +5,6 @@ import {
   getCoreRowModel,
   useReactTable,
   getSortedRowModel,
-  SortingFn,
-  SortingState,
 } from "@tanstack/react-table";
 import DraggableTableHeader from "./DraggableTableHeader";
 import DragAlongCell from "./DragAlongCell";
@@ -16,7 +14,6 @@ import CustomColumnSelector from "@/features/sheet/ui/CustomColumnSelector";
 import { Button } from "@/shared/ui/button/Button";
 import { getDummyStockAssets } from "@/features/sheet/api";
 
-// needed for table body level scope DnD setup
 import {
   DndContext,
   KeyboardSensor,
@@ -109,10 +106,8 @@ const DraggableTable = ({ tableData, setTableData }) => {
     enableMultiSort: false,
   });
 
-  // reorder columns after drag & drop
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
-    // 마지막 열의 id를 제외하고 드래그가 가능하게 제한
     const lastColumnId = columnOrder[columnOrder.length - 1];
 
     if (
@@ -155,7 +150,6 @@ const DraggableTable = ({ tableData, setTableData }) => {
   };
 
   return (
-    // NOTE: This provider creates div elements, so don't nest inside of <table> elements
     <DndContext
       collisionDetection={closestCenter}
       modifiers={[restrictToHorizontalAxis]}
