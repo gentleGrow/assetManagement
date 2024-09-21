@@ -73,12 +73,40 @@ const DraggableTableHeader = <T,>({
   }[(header.column.getIsSorted() as string) ?? "null"];
 
   const HeaderContent = () => (
-    <div className="w-full px-1.5 py-2.5 text-left">
+    <div
+      className={`w-full px-1.5 py-2.5 text-left ${isLeft() ? "text-left" : "text-right group-hover:pr-[24px]"} ${header.column.getIsSorted() && !isLeft() ? "pr-[24px]" : ""}`}
+    >
       {header.isPlaceholder
         ? null
         : flexRender(header.column.columnDef.header, header.getContext())}
+      {isRequired() && (
+        <span className="pl-[3px] text-left text-green-60">*</span>
+      )}
     </div>
   );
+
+  const isLeft = () => {
+    if (
+      header.id === "stock_name" ||
+      header.id === "buy_date" ||
+      header.id === "investment_bank" ||
+      header.id === "account_type"
+    ) {
+      return true;
+    }
+    return false;
+  };
+
+  const isRequired = () => {
+    if (
+      header.id === "stock_name" ||
+      header.id === "quantity" ||
+      header.id === "buy_date"
+    ) {
+      return true;
+    }
+    return false;
+  };
 
   return (
     <th
@@ -99,11 +127,11 @@ const DraggableTableHeader = <T,>({
           </button>
           {header.column.getCanSort() && (
             <button
-              className="absolute right-0 top-0 flex h-full items-center justify-center"
+              className={`absolute ${isLeft() ? "left-[60px] top-0" : "right-0 top-0"}  flex h-full items-center justify-center`}
               onClick={header.column.getToggleSortingHandler()}
             >
               <span
-                className={`absolute ml-2 transition-opacity duration-200 ${header.column.getIsSorted() ? "opacity-100" : "opacity-0 group-hover:opacity-0"}`}
+                className={`absolute ml-2 transition-opacity duration-200 group-hover:opacity-0 ${header.column.getIsSorted() ? "opacity-100" : "opacity-0 group-hover:opacity-0"}`}
               >
                 {selectedSortIcon}
               </span>
