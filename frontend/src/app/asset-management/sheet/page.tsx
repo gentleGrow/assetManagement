@@ -3,11 +3,13 @@
 import { useState, useEffect } from "react";
 import Summary from "@/widgets/card/Summary";
 import DraggableTable from "@/features/sheet/ui/DraggableTable";
+import TableHeader from "@/features/sheet/ui/TableHeader";
 import { getStockAssets } from "@/features/sheet/api";
 
 const Sheet = () => {
   const [summaryData, setSummaryData] = useState<any>([]);
   const [tableData, setTableData] = useState<any[]>([]);
+  const [count, setCount] = useState(0);
 
   const fetchData = async () => {
     try {
@@ -21,6 +23,7 @@ const Sheet = () => {
       } = await getStockAssets();
 
       setTableData(stock_assets);
+      setCount(stock_assets.length);
       setSummaryData({
         total_asset_amount: total_asset_amount,
         total_invest_amount: total_invest_amount,
@@ -39,6 +42,7 @@ const Sheet = () => {
   return (
     <div>
       <Summary summaryData={summaryData} />
+      <TableHeader count={count} />
       <DraggableTable tableData={tableData} setTableData={setTableData} />
     </div>
   );
