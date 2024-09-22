@@ -21,14 +21,13 @@ const SUMMARYDATA = [
     id: "total_profit_amount",
     type: "amount",
     amount: 0,
-    rate: "total_profit_rate",
+    rate: "-",
   },
   {
     title: "배당금",
     id: "total_dividend_amount",
     type: "amount",
     amount: 0,
-    rate: "total_profit_rate",
   },
 ];
 
@@ -43,7 +42,7 @@ export default function Summary({ summaryData }: any) {
       };
 
       if (data?.rate) {
-        summary.rate = summaryData[data.rate] || 0;
+        summary.rate = summaryData['total_profit_rate'] || 0;
       }
 
       return summary;
