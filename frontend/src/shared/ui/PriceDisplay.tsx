@@ -5,5 +5,9 @@ export default function PriceDisplay({ price }) {
     currency: "KRW",
   }).format(price);
 
-  return <div className="text-xl font-semibold">{formattedNumber}</div>;
+  return (
+    <div className="w-auto overflow-hidden text-ellipsis whitespace-nowrap text-[24px] font-semibold leading-[29px]">
+      {formattedNumber}
+    </div>
+  );
 }

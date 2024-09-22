@@ -27,6 +27,7 @@ const Sheet = () => {
       setSummaryData({
         total_asset_amount: total_asset_amount,
         total_invest_amount: total_invest_amount,
+        total_profit_rate: total_profit_rate,
         total_profit_amount: total_profit_amount,
         total_dividend_amount: total_dividend_amount,
       });

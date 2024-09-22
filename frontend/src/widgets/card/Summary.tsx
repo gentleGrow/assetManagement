@@ -21,12 +21,14 @@ const SUMMARYDATA = [
     id: "total_profit_amount",
     type: "amount",
     amount: 0,
+    rate: "total_profit_rate",
   },
   {
     title: "배당금",
     id: "total_dividend_amount",
     type: "amount",
     amount: 0,
+    rate: "total_profit_rate",
   },
 ];
 
@@ -34,17 +36,31 @@ export default function Summary({ summaryData }: any) {
   const [summary, setSummary] = useState<any>(SUMMARYDATA);
 
   useEffect(() => {
-    const newSummaryData = SUMMARYDATA.map((data) => ({
-      ...data,
-      amount: summaryData[data.id] || 0,
-    }));
+    const newSummaryData = SUMMARYDATA.map((data) => {
+      const summary = {
+        ...data,
+        amount: summaryData[data.id] || 0,
+      };
+
+      if (data?.rate) {
+        summary.rate = summaryData[data.rate] || 0;
+      }
+
+      return summary;
+    });
     setSummary(newSummaryData);
   }, [summaryData]);
 
   return (
     <div className="flex space-x-[16px]">
-      {summary.map(({ title, type, amount }) => (
-        <SummaryCard key={title} title={title} type={type} amount={amount} />
+      {summary.map(({ title, type, amount, rate }) => (
+        <SummaryCard
+          key={title}
+          title={title}
+          type={type}
+          amount={amount}
+          rate={rate}
+        />
       ))}
     </div>
   );
