@@ -156,7 +156,7 @@ const DraggableTable = ({ tableData, setTableData }) => {
       onDragEnd={handleDragEnd}
       sensors={sensors}
     >
-      <div className="relative mt-4 inline-block rounded-md border border-gray-30 bg-white">
+      <div className="w-full overflow-auto relative mt-4 inline-block rounded-md border border-gray-30 bg-white">
         {isModalOpen && (
           <CustomColumnSelector
             onClose={closeModal}

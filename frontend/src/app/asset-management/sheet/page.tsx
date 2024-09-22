@@ -41,11 +41,11 @@ const Sheet = () => {
   }, []);
 
   return (
-    <div>
+    <>
       <Summary summaryData={summaryData} />
       <TableHeader count={count} />
       <DraggableTable tableData={tableData} setTableData={setTableData} />
-    </div>
+    </>
   );
 };
 

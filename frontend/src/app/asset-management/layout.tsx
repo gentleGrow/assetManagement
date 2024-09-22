@@ -16,7 +16,9 @@ const AssetManagement: React.FC<{ children: React.ReactNode }> = ({
         <Tabs items={navItems} />
         {/* timestamp */}
       </div>
-      <div className="content bg-gray-5 px-[20px] pt-[20px]">{children}</div>
+      <div className="content min-w-[1080px] overflow-auto bg-gray-5 px-[20px] pt-[20px]">
+        {children}
+      </div>
     </div>
   );
 };
