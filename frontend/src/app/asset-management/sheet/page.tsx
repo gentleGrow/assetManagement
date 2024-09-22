@@ -10,6 +10,7 @@ const Sheet = () => {
   const [summaryData, setSummaryData] = useState<any>([]);
   const [tableData, setTableData] = useState<any[]>([]);
   const [count, setCount] = useState(0);
+  const [isKRW, setIsKRW] = useState<boolean>(true);
 
   const fetchData = async () => {
     try {
@@ -20,7 +21,7 @@ const Sheet = () => {
         total_profit_rate,
         total_profit_amount,
         total_dividend_amount,
-      } = await getStockAssets();
+      } = await getStockAssets(isKRW);
 
       setTableData(stock_assets);
       setCount(stock_assets.length);
@@ -40,10 +41,15 @@ const Sheet = () => {
     fetchData();
   }, []);
 
+  const changeCurrency = (value) => {
+    setIsKRW(value);
+    fetchData();
+  };
+
   return (
     <>
       <Summary summaryData={summaryData} />
-      <TableHeader count={count} />
+      <TableHeader count={count} changeCurrency={changeCurrency} />
       <DraggableTable tableData={tableData} setTableData={setTableData} />
     </>
   );
