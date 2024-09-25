@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "@/shared/ui/button/Button";
 import { colors } from "@/shared/ui/themes/variables/colors/scale";
 import { useButton } from "@/shared/ui/button/hooks/useButton";
+import { useToggleButton } from "@/shared/ui/button/hooks/useToggleButton";
 import { Text } from "@/shared/ui/layout/src";
 
 export default {
@@ -21,7 +22,7 @@ export default {
       control: "select",
     },
     variant: {
-      options: ["solid", "outline", "ghost"],
+      options: ["primary", "outline"],
       control: "select",
     },
   },
@@ -29,12 +30,13 @@ export default {
 
 export const ButtonStory = {
   args: {
-    size: "lg",
-    children: "Button",
-    variant: "outline",
+    // size: "lg",
+    size: "md",
+    children: "적용하기",
+    variant: "primary",
     isDisabled: false,
     isLoading: false,
-    leftIcon: "😀",
+    // leftIcon: "😀",
   },
 };
 
@@ -60,6 +62,25 @@ export const TextButtonStory = {
       >
         텍스트 버튼입니다.
       </Text>
+    );
+  },
+};
+
+export const ToggleButtonStory = {
+  render: () => {
+    const { buttonProps, isSelected } = useToggleButton(
+      { elementType: "button" },
+      false,
+    );
+
+    return (
+      <Button
+        {...buttonProps}
+        variant={isSelected ? "solid" : "outline"}
+        color="green"
+      >
+        {isSelected ? "😀" : "😂"}
+      </Button>
     );
   },
 };

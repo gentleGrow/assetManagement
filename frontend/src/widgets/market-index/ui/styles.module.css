@@ -1,0 +1,9 @@
+/* styles.module.css */
+.swiperWrapper {
+  transition-timing-function: linear !important;
+}
+
+.swiperWrapper * {
+  transition-timing-function: linear !important;
+  width: fit-content !important;
+}

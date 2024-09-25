@@ -1,0 +1,55 @@
+FROM python:3.11
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y \
+    wget \
+    gnupg \
+    unzip \
+    chromium \
+    chromium-driver \
+    libasound2 \
+    libatk-bridge2.0-0 \
+    libatk1.0-0 \
+    libcairo2 \
+    libcups2 \
+    libdrm2 \
+    libgbm1 \
+    libglib2.0-0 \
+    libgtk-3-0 \
+    libnspr4 \
+    libnss3 \
+    libpango-1.0-0 \
+    libx11-6 \
+    libx11-xcb1 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxext6 \
+    libxfixes3 \
+    libxrandr2 \
+    libxss1 \
+    libxtst6 \
+    libgbm1 \
+    xdg-utils \
+    libcurl4 \
+    libvulkan1 && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN apt-get install -y chromium-driver && \
+    which chromedriver && \
+    chromedriver --version || echo "chromedriver not found or installation failed."
+
+RUN pip install poetry && \
+    pip install peewee==3.17.5
+
+COPY pyproject.toml poetry.lock /app/
+
+RUN poetry config virtualenvs.create false && \
+    poetry install --no-interaction --no-ansi --no-root
+
+COPY . /app/
+
+COPY ./app/data/naver/realtime_index_world.py /app/task.py
+
+CMD ["python", "task.py"]

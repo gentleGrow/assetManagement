@@ -3,13 +3,20 @@ from sqlalchemy.exc import SQLAlchemyError
 
 from app.module.asset.model import (  # noqa > relationship purpose
     Asset,
+    AssetField,
     Dividend,
+    MarketIndexDaily,
+    MarketIndexMinutely,
+    MarketIndexMonthly,
+    MarketIndexWeekly,
     Stock,
     StockDaily,
+    StockMinutely,
     StockMonthly,
     StockWeekly,
 )
 from app.module.auth.model import User  # noqa > relationship purpose
+from app.module.chart.model import InvestTip  # noqa > create table
 from database.config import MYSQL_URL, MySQLBase
 
 print("[create_tables] 테이블 생성을 시도 합니다.")
@@ -29,10 +36,6 @@ def main():
             print(f"[create_tables] Unexpected error: {e}")
     else:
         print(f"[create_tables] MYSQL_URL가 정의 되어 있지 않습니다., {MYSQL_URL=}")
-
-
-def lambda_handler(event, context):
-    main()
 
 
 if __name__ == "__main__":

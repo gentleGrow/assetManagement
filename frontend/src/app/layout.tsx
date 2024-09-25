@@ -15,15 +15,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const test = async () => {
-    fetch("http://localhost/api/auth/refresh");
-  };
-
-  test();
   return (
-    <html lang="en">
+    <html lang="ko">
       <body className={inter.className}>
-        <div className="relative min-h-svh w-svw">
+        <div className="relative min-h-svh text-body-1">
           <Header />
           {children}
         </div>

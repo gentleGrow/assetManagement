@@ -3,7 +3,7 @@ import { MenuItem } from "@/widgets";
 import "../../app/globals.css";
 
 const meta: Meta<typeof MenuItem> = {
-  title: "Components/GNB/MenuItem",
+  title: "React Components/GNB/MenuItem",
   component: MenuItem,
   parameters: {
     layout: "centered",

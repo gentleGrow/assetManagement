@@ -1,11 +1,18 @@
 from sqlalchemy.dialects.mysql import insert
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
+from sqlalchemy.sql import func
 
 from app.module.asset.model import Stock
 
 
 class StockRepository:
+    @staticmethod
+    async def get_all(session: AsyncSession) -> list[Stock]:
+        stmt = select(Stock)
+        result = await session.execute(stmt)
+        return result.scalars().all()
+
     @staticmethod
     async def get_stock(session: AsyncSession, stock_id: int) -> Stock:
         stock_instance = await session.execute(select(Stock).where(Stock.id == stock_id))
@@ -17,7 +24,7 @@ class StockRepository:
         return result.scalars().all()
 
     @staticmethod
-    async def get_by_code(session: AsyncSession, stock_code: str) -> Stock:
+    async def get_by_code(session: AsyncSession, stock_code: str) -> Stock | None:
         result = await session.execute(select(Stock).where(Stock.code == stock_code))
         return result.scalar_one_or_none()
 
@@ -49,6 +56,7 @@ class StockRepository:
             "name": stmt.inserted.name,
             "market_index": stmt.inserted.market_index,
             "country": stmt.inserted.country,
+            "updated_at": func.now(),
         }
 
         upsert_stmt = stmt.on_duplicate_key_update(update_dict)

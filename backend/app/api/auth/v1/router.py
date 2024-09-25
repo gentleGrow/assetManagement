@@ -6,6 +6,7 @@ from app.module.auth.constant import REDIS_JWT_REFRESH_EXPIRE_TIME_SECOND
 from app.module.auth.enum import ProviderEnum
 from app.module.auth.jwt import JWTBuilder
 from app.module.auth.model import User
+from app.module.auth.redis_repository import RedisSessionRepository
 from app.module.auth.repository import UserRepository
 from app.module.auth.schema import (
     AccessTokenResponse,
@@ -16,7 +17,6 @@ from app.module.auth.schema import (
 )
 from app.module.auth.service import Google, Kakao, Naver
 from database.dependency import get_redis_pool, get_router_sql_session
-from database.redis import RedisSessionRepository
 
 auth_router = APIRouter(prefix="/v1")
 
@@ -129,6 +129,7 @@ async def google_login(
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
 
     social_id = id_info.get("sub")
+
     if social_id is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="id token에 유저 정보가 없습니다.")
 

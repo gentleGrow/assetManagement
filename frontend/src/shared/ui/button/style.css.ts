@@ -15,8 +15,10 @@ export const buttonStyle = recipe({
     padding: 0,
     border: 0,
 
-    borderRadius: radii.md,
+    borderRadius: "6px",
+    // borderRadius: radii.md,
     display: "flex",
+    justifyContent: "center",
     alignItems: "center",
     cursor: "pointer",
     userSelect: "none",
@@ -54,11 +56,14 @@ export const buttonStyle = recipe({
         height: "2rem",
       },
       md: {
-        ...text.md,
-        fontWeight: fontWeight[600],
-        padding: "0 1rem",
-        gap: "0.5rem",
-        height: "2.5rem",
+        ...text.sm,
+        padding: "8px 12px",
+        gap: "10px",
+        height: "36px",
+        width: "182px",
+        // padding: "0 1rem",
+        // gap: "0.5rem",
+        // height: "2.5rem",
       },
       lg: {
         ...text.lg,
@@ -69,6 +74,23 @@ export const buttonStyle = recipe({
       },
     },
     variant: {
+      primary: {
+        backgroundColor: colors.$scale.green[60],
+        color: "#FFFFFF",
+
+        "&:hover:not([disabled])": {
+          backgroundColor: colors.$scale.green[70],
+        },
+        "&:active:not([disabled])": {
+          backgroundColor: colors.$scale.green[70],
+        },
+        "&[disabled]": {
+          backgroundColor: colors.$scale.gray[10],
+          color: colors.$scale.gray[50],
+          opacity: 1,
+          cursor: "not-allowed",
+        },
+      },
       solid: {
         backgroundColor: enableColorVariant,
         color: colors.$scale.gray[50],

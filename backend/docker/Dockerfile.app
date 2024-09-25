@@ -1,4 +1,4 @@
-FROM python:3.11-slim
+FROM python:3.11
 
 WORKDIR /app
 
@@ -7,7 +7,7 @@ RUN apt-get update && \
     apt-get clean
 
 RUN pip install poetry
-RUN pip install peewee==3.17.5
+RUN pip install  peewee==3.17.6
 
 COPY pyproject.toml poetry.lock /app/
 

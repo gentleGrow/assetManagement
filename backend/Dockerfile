@@ -15,6 +15,6 @@ RUN poetry config virtualenvs.create false && poetry install --no-interaction --
 
 COPY . /app/
 
-COPY ./app/data/naver/korea_realtime_stock.py /app/task.py
+COPY ./app/data/initial/insert_basic_data.py /app/task.py
 
 CMD ["python", "task.py"]
