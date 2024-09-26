@@ -10,7 +10,7 @@ interface SummaryCardProps {
 
 export default function SummaryCard({ title, amount, rate }: SummaryCardProps) {
   return (
-    <div className="min-w-[248px] flex-1">
+    <div className="min-w-[246px] flex-1">
       <Card title={title} height="100px">
         <div className="flex items-center">
           {amount && <PriceDisplay price={amount} />}
