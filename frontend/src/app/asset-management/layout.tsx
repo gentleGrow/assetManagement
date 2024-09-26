@@ -11,12 +11,12 @@ const AssetManagement: React.FC<{ children: React.ReactNode }> = ({
   ];
 
   return (
-    <div className="py-[20px]">
+    <div className="h-full py-[20px]">
       <div className="header px-[20px]">
         <Tabs items={navItems} />
         {/* timestamp */}
       </div>
-      <div className="content min-w-[1080px] overflow-auto bg-gray-5 px-[20px] pt-[20px]">
+      <div className="content h-[calc(100svh-64px)] min-w-[1080px] overflow-auto bg-gray-5 px-[20px] pt-[20px]">
         {children}
       </div>
     </div>

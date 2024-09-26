@@ -150,78 +150,83 @@ const DraggableTable = ({ tableData, setTableData }) => {
   };
 
   return (
-    <DndContext
-      collisionDetection={closestCenter}
-      modifiers={[restrictToHorizontalAxis]}
-      onDragEnd={handleDragEnd}
-      sensors={sensors}
-    >
-      <div className="w-full overflow-auto relative mt-4 inline-block rounded-md border border-gray-30 bg-white">
-        {isModalOpen && (
-          <CustomColumnSelector
-            onClose={closeModal}
-            columnOrder={columnOrder}
-            setColumnOrder={setColumnOrder}
-          />
-        )}
-        <table className="border-collapse">
-          <thead>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
-                <SortableContext
-                  items={columnOrder.slice(0, -1)}
-                  strategy={horizontalListSortingStrategy}
-                >
-                  {headerGroup.headers.map((header, index) => (
-                    <DraggableTableHeader
-                      key={header.id}
-                      header={header}
-                      isLastColumn={index === headerGroup.headers.length - 1}
-                      isFixed={header.id === "+"}
+    <div className="relative w-auto min-w-[1080px]">
+      <DndContext
+        collisionDetection={closestCenter}
+        modifiers={[restrictToHorizontalAxis]}
+        onDragEnd={handleDragEnd}
+        sensors={sensors}
+      >
+        <div className="relative mt-4 inline-block w-auto max-w-max rounded-md border border-gray-30 bg-white">
+          {isModalOpen && (
+            <CustomColumnSelector
+              onClose={closeModal}
+              columnOrder={columnOrder}
+              setColumnOrder={setColumnOrder}
+            />
+          )}
+          <table className="w-auto border-collapse border-spacing-0">
+            <thead>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <tr key={headerGroup.id} className="border-b-2 border-gray-50">
+                  <SortableContext
+                    items={columnOrder.slice(0, -1)}
+                    strategy={horizontalListSortingStrategy}
+                  >
+                    {headerGroup.headers.map((header, index) => (
+                      <DraggableTableHeader
+                        key={header.id}
+                        header={header}
+                        isLastColumn={index === headerGroup.headers.length - 1}
+                        isFixed={header.id === "+"}
+                      />
+                    ))}
+                  </SortableContext>
+                </tr>
+              ))}
+            </thead>
+            <tbody>
+              {table.getRowModel().rows.map((row, rowIndex) => (
+                <tr key={row.id}>
+                  {row.getVisibleCells().map((cell, index) => (
+                    <DragAlongCell
+                      key={cell.id}
+                      cell={cell}
+                      isLastColumn={index === row.getVisibleCells().length - 1}
+                      isLastRow={
+                        rowIndex === table.getRowModel().rows.length - 1
+                      }
+                      editData={handleEdit}
+                      options={options}
                     />
                   ))}
-                </SortableContext>
+                </tr>
+              ))}
+              <tr>
+                <td colSpan={filteredColumns.length}>
+                  <Button
+                    variant="icon"
+                    size="xs"
+                    leftIcon={
+                      <Image
+                        src="/images/add_row.svg"
+                        alt="add row button"
+                        width={24}
+                        height={24}
+                      />
+                    }
+                    style={{ color: "var(--gray-100)" }}
+                    onClick={addRow}
+                  >
+                    행 추가
+                  </Button>
+                </td>
               </tr>
-            ))}
-          </thead>
-          <tbody>
-            {table.getRowModel().rows.map((row, rowIndex) => (
-              <tr key={row.id}>
-                {row.getVisibleCells().map((cell, index) => (
-                  <DragAlongCell
-                    key={cell.id}
-                    cell={cell}
-                    isLastColumn={index === row.getVisibleCells().length - 1}
-                    isLastRow={rowIndex === table.getRowModel().rows.length - 1}
-                    options={options}
-                  />
-                ))}
-              </tr>
-            ))}
-            <tr>
-              <td colSpan={filteredColumns.length}>
-                <Button
-                  variant="icon"
-                  size="xs"
-                  leftIcon={
-                    <Image
-                      src="/images/add_row.svg"
-                      alt="add row button"
-                      width={24}
-                      height={24}
-                    />
-                  }
-                  style={{ color: "var(--gray-100)" }}
-                  onClick={addRow}
-                >
-                  행 추가
-                </Button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </DndContext>
+            </tbody>
+          </table>
+        </div>
+      </DndContext>
+    </div>
   );
 };
 

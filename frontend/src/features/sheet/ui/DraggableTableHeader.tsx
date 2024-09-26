@@ -74,7 +74,7 @@ const DraggableTableHeader = <T,>({
 
   const HeaderContent = () => (
     <div
-      className={`w-full px-1.5 py-2.5 text-left ${isLeft() ? "text-left" : "text-right group-hover:pr-[24px]"} ${header.column.getIsSorted() && !isLeft() ? "pr-[24px]" : ""}`}
+      className={`w-full px-[10px] py-[12.5px] text-left ${isLeft() ? "text-left" : "text-right group-hover:pr-[24px]"} ${header.column.getIsSorted() && !isLeft() ? "pr-[24px]" : ""}`}
     >
       {header.isPlaceholder
         ? null
@@ -90,7 +90,8 @@ const DraggableTableHeader = <T,>({
       header.id === "stock_name" ||
       header.id === "buy_date" ||
       header.id === "investment_bank" ||
-      header.id === "account_type"
+      header.id === "account_type" ||
+      header.id === "+"
     ) {
       return true;
     }
@@ -114,7 +115,7 @@ const DraggableTableHeader = <T,>({
       colSpan={header.colSpan}
       ref={setNodeRef}
       style={style}
-      className={`border-b border-gray-30 text-sm font-semibold text-gray-100 ${
+      className={`border-gray-30 p-0 text-[14px] font-semibold leading-[17px] text-gray-100 ${
         isLastColumn ? "" : "border-r"
       } group`}
     >
@@ -127,7 +128,7 @@ const DraggableTableHeader = <T,>({
           </button>
           {header.column.getCanSort() && (
             <button
-              className={`absolute ${isLeft() ? "left-[60px] top-0" : "right-0 top-0"}  flex h-full items-center justify-center`}
+              className={`absolute ${isLeft() ? "left-[60px] top-0" : "right-0 top-0"} flex h-full items-center justify-center`}
               onClick={header.column.getToggleSortingHandler()}
             >
               <span
