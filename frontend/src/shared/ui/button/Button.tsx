@@ -13,22 +13,20 @@ import { ButtonProps } from "./types";
 import { useButton } from "./hooks/useButton";
 import { colors } from "../themes/variables";
 
-
 const Button = (props: ButtonProps, ref: React.Ref<HTMLButtonElement>) => {
-  const { buttonProps } = useButton(props);
-
   const {
-    variant = "solid",
-    size = "md",
-    color = "gray",
     leftIcon,
     rightIcon,
     isLoading,
-    children,
     style,
+    variant = "solid",
+    size = "md",
+    color = "gray",
+    ...restProps
   } = props;
+  const { buttonProps } = useButton(restProps);
 
-  const endableColor =colors.$scale[color][50];
+  const endableColor = colors.$scale[color][50];
   const hoverColor =
     variant === "solid"
       ? colors.$scale[color][60]
@@ -36,9 +34,7 @@ const Button = (props: ButtonProps, ref: React.Ref<HTMLButtonElement>) => {
         ? colors.$scale[color][10]
         : colors.$scale[color][50];
   const activeColor =
-    variant === "solid"
-      ? colors.$scale[color][70]
-      : colors.$scale[color][10];
+    variant === "solid" ? colors.$scale[color][70] : colors.$scale[color][10];
 
   return (
     <button
@@ -62,7 +58,7 @@ const Button = (props: ButtonProps, ref: React.Ref<HTMLButtonElement>) => {
     >
       {isLoading && <div className={spinnerStyle({ size })} />}
       {leftIcon && <span className={spanStyle({ size })}>{leftIcon}</span>}
-      <span>{children}</span>
+      <span>{props.children}</span>
       {rightIcon && <span className={spanStyle({ size })}>{rightIcon}</span>}
     </button>
   );
