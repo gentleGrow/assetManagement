@@ -50,7 +50,12 @@ const Sheet = () => {
     <>
       <Summary summaryData={summaryData} />
       <TableHeader count={count} changeCurrency={changeCurrency} />
-      <DraggableTable tableData={tableData} setTableData={setTableData} />
+      {/* <DraggableTable
+        tableData={tableData}
+        setTableData={setTableData}
+        fieldList={fieldList}
+        fetchData={fetchData}
+      />
     </>
   );
 };
