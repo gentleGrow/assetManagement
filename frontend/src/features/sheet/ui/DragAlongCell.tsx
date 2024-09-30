@@ -62,6 +62,7 @@ const DragAlongCell = <T,>({
         );
 
       case "quantity":
+      case "stock_volume":
         return <NumberCell value={cellValue} onChange={onChange} />;
 
       case "buy_date":
@@ -84,15 +85,63 @@ const DragAlongCell = <T,>({
             accountList={options?.accountList}
           />
         );
-        
-      case "profit_amount":
-        return <ProfitCell value={cellValue} onChange={onChange} />;
+
+      case "profit_rate":
+        return (
+          <ProfitCell
+            value={cellValue}
+            onChange={onChange}
+            isNew={cell.getContext().row.original?.["isNew"]}
+          />
+        );
 
       case "purchase_price":
-        return <PriceCell value={cellValue} onChange={onChange} />;
+      case "purchase_amount":
+        return (
+          <PriceCell
+            value={cellValue}
+            onChange={onChange}
+            isAutoCalc={false}
+            isNew={cell.getContext().row.original?.["isNew"]}
+            isKRW={
+              cell.getContext().row.original?.["purchase_currency_type"] ===
+              "KRW"
+            }
+          />
+        );
+
+      case "profit_amount":
+      case "current_price":
+      case "opening_price":
+      case "highest_price":
+      case "lowest_price":
+        return (
+          <PriceCell
+            value={cellValue}
+            onChange={onChange}
+            isAutoCalc={true}
+            isNew={cell.getContext().row.original?.["isNew"]}
+            isKRW={
+              cell.getContext().row.original?.["purchase_currency_type"] ===
+              "KRW"
+            }
+          />
+        );
 
       case "dividend":
-        return <PriceCell value={cellValue} onChange={onChange} />;
+        return (
+          <PriceCell
+            value={cellValue}
+            onChange={onChange}
+            isAutoCalc={true}
+            isNew={cell.getContext().row.original?.["isNew"]}
+            isKRW={
+              cell.getContext().row.original?.["purchase_currency_type"] ===
+              "KRW"
+            }
+            isDividend={true}
+          />
+        );
 
       default:
         return defaultCell();
@@ -126,14 +175,14 @@ const DragAlongCell = <T,>({
     <td
       style={style}
       ref={setNodeRef}
-      className={`border-gray-10 text-sm font-normal text-gray-90 ${
+      className={`border-gray-10 p-0 text-sm font-normal text-gray-90 ${
         isLastColumn ? "" : "border-r"
-      } ${isLastRow ? "" : "border-b"} ${isEditing ? "z-100" : ""}`}
+      } border-b ${isEditing ? "z-100" : ""}`}
       onClick={handleCellClick}
       onBlur={handleCellBlur}
       tabIndex={0}
     >
-      <div ref={cellRef} className="w-full px-1.5 py-2.5">
+      <div ref={cellRef} className="h-full w-full">
         {renderTableCell()}
       </div>
     </td>

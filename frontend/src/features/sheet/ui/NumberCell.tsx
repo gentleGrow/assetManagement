@@ -16,7 +16,7 @@ export default function NumberCell({
     const { value } = e.target;
     if (/^\d*$/.test(value)) {
       if (onChange) {
-        onChange(value);
+        onChange(Number(value));
         setIsError(false);
       }
     } else {
@@ -28,9 +28,11 @@ export default function NumberCell({
     <div className="relative w-full">
       <Input
         type="text"
-        value={value}
+        value={value ?? ""}
         onChange={handleChange}
         isError={isError}
+        classNames={"w-full focus:!ring-1 focus:!ring-green-60 border-none"}
+        isInCell={true}
       />
       {isError && (
         <div className="absolute left-0 top-[-24px] flex h-[24px] items-center justify-center rounded-[4px] bg-alert p-[4px]">
